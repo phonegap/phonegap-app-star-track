@@ -2,10 +2,10 @@
 <widget id="com.phonegap.startrack" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Star Track</name>
     <description>
-        A basic Framework7 template for PhoneGap.
+        A basic Framework7 Media App for PhoneGap.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="tommy@devgeeks.org" href="http://phonegap.com">
+        Adobe PhoneGap Team
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -116,4 +116,5 @@
         <splash src="res/screen/windows/SplashScreenPhone.scale-240.png" platform="windows"   width="1152" height="1920" />
     </platform>
 
+    <preference name="StatusBarStyle" value="default" />
 </widget>
