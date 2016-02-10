@@ -10,7 +10,8 @@
             * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+    <!-- Removing 'unsafe-eval'. If needed, I will figure out a way around it -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">
 
     <!-- Required meta tags-->
     <meta charset="utf-8">
@@ -20,8 +21,7 @@
     <meta name="format-detection" content="telephone=no">
     <meta name="msapplication-tap-highlight" content="no">
 
-    <!-- Your app title -->
-    <title>My App</title>
+    <title>PhoneGap Media App</title>
 
     <!-- This template defaults to the iOS CSS theme. To support both iOS and material design themes, see the Framework7 Tutorial at the link below:
         http://www.idangero.us/framework7/tutorials/maintain-both-ios-and-material-themes-in-single-app.html
@@ -39,8 +39,8 @@
 
     <!-- Panels overlay-->
     <div class="panel-overlay"></div>
-    <!-- Left panel with reveal effect-->
-    <div class="panel panel-left panel-reveal">
+    <!-- Left panel with cover effect-->
+    <div class="panel panel-left panel-cover">
         <div class="content-block">
             <p>Left panel content goes here</p>
         </div>
@@ -53,15 +53,15 @@
             <!-- Top Navbar-->
             <div class="navbar">
                 <div class="navbar-inner">
-                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-                    <div class="center sliding">Awesome App</div>
-                    <div class="right">
+                    <div class="left">
                         <!--
-                          Right link contains only icon - additional "icon-only" class
+                          Left link contains only icon - additional "icon-only" class
                           Additional "open-panel" class tells app to open panel when we click on this link
                         -->
                         <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
                     </div>
+                    <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
+                    <div class="center sliding">Awesome App</div>
                 </div>
             </div>
             <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -72,18 +72,8 @@
                     <div class="page-content">
                         <div class="content-block">
                             <p>Page content goes here</p>
-                            <!-- Link to another page -->
-                            <a href="about.html">About app</a>
                         </div>
                     </div>
-                </div>
-            </div>
-            <!-- Bottom Toolbar-->
-            <div class="toolbar">
-                <div class="toolbar-inner">
-                    <!-- Toolbar links -->
-                    <a href="#" class="link">Link 1</a>
-                    <a href="#" class="link">Link 2</a>
                 </div>
             </div>
         </div>
