@@ -10,7 +10,7 @@ Template7.global = {
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
 
-if (isAndroid) {
+if (!isIos) {
   // Change class
   $$('.view.navbar-through').removeClass('navbar-through').addClass('navbar-fixed');
   // And move Navbar into Page
@@ -19,8 +19,9 @@ if (isAndroid) {
 
 // Initialize app
 var myApp = new Framework7({
-  material: isAndroid ? true : false,
+  material: isIos? false : true,
   template7Pages: true,
+  swipePanelOnlyClose: 'left',
 });
 
 // Add view
