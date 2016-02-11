@@ -52,7 +52,7 @@
             <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
           </div>
           <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-          <div class="center sliding">Awesome App</div>
+          <div class="center sliding">Media App</div>
         </div>
       </div>
       <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -61,9 +61,77 @@
         <div data-page="index" class="page">
           <!-- Scrollable page content -->
           <div class="page-content">
-            <div class="content-block">
-              <p>Page content goes here</p>
-            </div>
+            <form action="#" method="GET" id="search">
+              <div class="content-block-title">Search</div>
+              <div class="list-block">
+                <ul>
+                  <li>
+                    <div class="item-content">
+                      <div class="item-inner">
+                        <div class="item-input">
+                          <input type="search" name="search"
+                            placeholder="track, artist or album"
+                            autocorrect="off" autocapitalize="off">
+                        </div>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="item-divider">Search In:</li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <!-- Checked by default -->
+                      <input type="checkbox" name="search-includes" value="tracks" checked>
+                      <div class="item-media">
+                        <i class="icon icon-form-checkbox"></i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">Track name<div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <!-- Checked by default -->
+                      <input type="checkbox" name="search-includes" value="artists" checked>
+                      <div class="item-media">
+                        <i class="icon icon-form-checkbox"></i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">Artist name</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <!-- Checked by default -->
+                      <input type="checkbox" name="search-includes" value="songs" checked>
+                      <div class="item-media">
+                        <i class="icon icon-form-checkbox"></i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">Song name</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li class="item-divider">Options:</li>
+                  <li>
+                    <label class="label-checkbox item-content">
+                      <!-- Checked by default -->
+                      <input type="checkbox" name="explicit" value="yes">
+                      <div class="item-media">
+                        <i class="icon icon-form-checkbox"></i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">Include Explicit Results?</div>
+                      </div>
+                    </label>
+                  </li>
+                </ul>
+              </div>
+              <div class="content-block">
+                <input type="submit" class="button button-big button-fill search-submit" value="Search" />
+              </div>
+            </form>
           </div>
         </div>
       </div>
