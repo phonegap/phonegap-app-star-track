@@ -1,9 +1,9 @@
 // Code for platform detection
-var isAndroid = Framework7.prototype.device.android === true;
+var isMaterial = Framework7.prototype.device.ios === false;
 var isIos = Framework7.prototype.device.ios === true;
 
 Template7.global = {
-  android: isAndroid,
+  material: isMaterial,
   ios: isIos
 };
 
@@ -21,10 +21,12 @@ if (!isIos) {
 var myApp = new Framework7({
   material: isIos? false : true,
   template7Pages: true,
+  precompileTemplates: true,
   swipePanel: 'left',
   swipePanelActiveArea: '30',
   swipeBackPage: true,
   animateNavBackIcon: true,
+  pushState: true,
 });
 
 // Add view
@@ -53,6 +55,8 @@ $$(document).on('submit', '#search', function(e) {
   formData.explicit = !!formData.explicit.length;
   formData.type = 'track';
   console.log(formData);
+  $$('input').blur();
+  myApp.showPreloader('Searching');
   $$.ajax({
     dataType: 'json',
     data: formData,
@@ -60,8 +64,17 @@ $$(document).on('submit', '#search', function(e) {
     url: 'https://api.spotify.com/v1/search',
     success: function (resp) {
       console.log(resp.tracks);
+      myApp.hidePreloader();
+      mainView.router.load({
+        template: myApp.templates.results,
+        context: {
+          tracks: resp.tracks,
+        },
+      });
     },
     error: function (xhr) {
+      myApp.hidePreloader();
+      myApp.alert('An error has occurred', 'Search Error');
       console.log("Error on ajax call " + JSON.stringify(xhr));
     }
   });
