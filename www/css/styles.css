@@ -32,7 +32,6 @@ body {
   line-height: 40px;
 }
 
-.ios .list-block .label-radio .item-media,
-.ios .list-block .label-checkbox .item-media {
+.ios .list-block .label-radio .item-media {
   display: none;
 }
