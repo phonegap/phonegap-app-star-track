@@ -69,20 +69,20 @@
                     <div class="item-content">
                       <div class="item-inner">
                         <div class="item-input">
-                          <input type="search" name="search"
+                          <input type="search" name="q"
                             placeholder="track, artist or album"
                             autocorrect="off" autocapitalize="off">
                         </div>
                       </div>
                     </div>
                   </li>
-                  <li class="item-divider">Search In:</li>
+                  <li class="item-divider">Limit search</li>
                   <li>
-                    <label class="label-checkbox item-content">
+                    <label class="label-radio item-content">
                       <!-- Checked by default -->
-                      <input type="checkbox" name="search-includes" value="tracks" checked>
+                      <input type="radio" name="filter" value="track">
                       <div class="item-media">
-                        <i class="icon icon-form-checkbox"></i>
+                        <i class="icon icon-form-radio"></i>
                       </div>
                       <div class="item-inner">
                         <div class="item-title">Track name<div>
@@ -90,11 +90,11 @@
                     </label>
                   </li>
                   <li>
-                    <label class="label-checkbox item-content">
+                    <label class="label-radio item-content">
                       <!-- Checked by default -->
-                      <input type="checkbox" name="search-includes" value="artists" checked>
+                      <input type="radio" name="filter" value="artist">
                       <div class="item-media">
-                        <i class="icon icon-form-checkbox"></i>
+                        <i class="icon icon-form-radio"></i>
                       </div>
                       <div class="item-inner">
                         <div class="item-title">Artist name</div>
@@ -102,19 +102,32 @@
                     </label>
                   </li>
                   <li>
-                    <label class="label-checkbox item-content">
+                    <label class="label-radio item-content">
                       <!-- Checked by default -->
-                      <input type="checkbox" name="search-includes" value="songs" checked>
+                      <input type="radio" name="filter" value="album">
                       <div class="item-media">
-                        <i class="icon icon-form-checkbox"></i>
+                        <i class="icon icon-form-radio"></i>
                       </div>
                       <div class="item-inner">
-                        <div class="item-title">Song name</div>
+                        <div class="item-title">Album name</div>
+                      </div>
+                    </label>
+                  </li>
+                  <li>
+                    <label class="label-radio item-content">
+                      <!-- Checked by default -->
+                      <input type="radio" name="filter" value="all" checked>
+                      <div class="item-media">
+                        <i class="icon icon-form-radio"></i>
+                      </div>
+                      <div class="item-inner">
+                        <div class="item-title">All of the above</div>
                       </div>
                     </label>
                   </li>
                 </ul>
               </div>
+              <input type="hidden" name="limit" value="25" />
               <div class="content-block">
                 <input type="submit" class="button button-big button-fill search-submit" value="Search" />
               </div>

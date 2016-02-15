@@ -35,6 +35,31 @@ $$(document).on('deviceready', function() {
   console.log('Device is ready!');
 });
 
-myApp.onPageInit('index', function (page) {
-  // ...
+$$(document).on('submit', '#search', function(e) {
+  e.preventDefault();
+  var formData = myApp.formToJSON('#search');
+  if (!formData.q) {
+    myApp.alert('Please enter a search term', 'Search Error');
+    return;
+  }
+
+  formData.q = (formData.filter === 'all')
+    ? formData.q.trim()
+    : formData.filter + ':' + formData.q.trim();
+  delete formData.filter;
+  formData.type = 'track';
+  console.log(formData);
+  $$.ajax({
+    dataType: 'json',
+    data: formData,
+    processData: true,
+    url: 'https://api.spotify.com/v1/search',
+    success: function (resp) {
+      console.log(resp.tracks);
+    },
+    error: function (xhr) {
+      console.log("Error on ajax call " + JSON.stringify(xhr));
+    }
+  });
 });
+

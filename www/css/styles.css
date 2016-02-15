@@ -21,11 +21,18 @@ body {
   background: rgb(247, 247, 248);
 }
 
-.material .page .page-content > .content-block-title:first-of-type,
-.material .page .page-content > .content-block:first-of-type {
+.material .page .page-content .content-block-title:first-of-type,
+.material .page .page-content .content-block:first-of-type {
   margin-top: 78px;
 }
 
+/* Fix for checkbox and radio titles in material */
+.material .list-block .label-radio .item-inner .item-title,
 .material .list-block .label-checkbox .item-inner .item-title {
   line-height: 40px;
+}
+
+.ios .list-block .label-radio .item-media,
+.ios .list-block .label-checkbox .item-media {
+  display: none;
 }
