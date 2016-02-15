@@ -21,7 +21,10 @@ if (!isIos) {
 var myApp = new Framework7({
   material: isIos? false : true,
   template7Pages: true,
-  swipePanelOnlyClose: 'left',
+  swipePanel: 'left',
+  swipePanelActiveArea: '30',
+  swipeBackPage: true,
+  animateNavBackIcon: true,
 });
 
 // Add view
