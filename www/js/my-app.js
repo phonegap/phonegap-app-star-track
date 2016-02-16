@@ -26,7 +26,7 @@ var myApp = new Framework7({
   swipePanelActiveArea: '30',
   swipeBackPage: true,
   animateNavBackIcon: true,
-  pushState: true,
+  pushState: !!Framework7.prototype.device.os,
 });
 
 // Add view
