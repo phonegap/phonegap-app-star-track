@@ -2,9 +2,30 @@
 var isMaterial = Framework7.prototype.device.ios === false;
 var isIos = Framework7.prototype.device.ios === true;
 
+// A template helper to turn ms durations to mm:ss
+// We need to be able to pad to 2 digits
+function pad2(number) {
+  if (number <= 99) { number = ('0' + number).slice(-2); }
+  return number;
+}
+// Now the actual helper to turn ms to mm:ss
+function durationFromMs(ms) {
+  if (typeof ms != 'number') {
+    return '';
+  }
+  var x = ms / 1000;
+  var seconds = pad2(Math.floor(x % 60));
+  x /= 60;
+  var minutes = pad2(Math.floor(x % 60));
+  var days = pad2(Math.floor(x));
+  return minutes + ':' + seconds;
+}
+// Finally, register the helper with Template7
+Template7.registerHelper('durationFromMs', durationFromMs);
+
 Template7.global = {
   material: isMaterial,
-  ios: isIos
+  ios: isIos,
 };
 
 // If we need to use custom DOM library, let's save it to $$ variable:

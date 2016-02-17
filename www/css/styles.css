@@ -32,6 +32,10 @@ body {
   line-height: 40px;
 }
 
+.material .media-list .item-link .item-title-row {
+  background-image: none;
+}
+
 .ios .list-block .label-radio .item-media {
   display: none;
 }
