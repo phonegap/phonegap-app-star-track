@@ -11,7 +11,7 @@
         * Enable inline JS: add 'unsafe-inline' to default-src
     -->
   <!-- Removing 'unsafe-eval'. If needed, I will figure out a way around it -->
-  <!--<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com; style-src 'self' 'unsafe-inline'; media-src *">-->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com https://api.spotify.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src * data:">
 
   <!-- Required meta tags-->
   <meta charset="utf-8">
@@ -193,8 +193,10 @@
                   <div class="item-inner">
                     <div class="item-title-row">
                       <div class="item-title">{{this.name}}</div>
+                      <div class="item-after">{{durationFromMs this.duration_ms}}</div>
                     </div>
                     <div class="item-subtitle">{{this.artists[0].name}}</div>
+                    <div class="item-text">{{this.album.name}}</div>
                   </div>
                 </a>
               </li>
