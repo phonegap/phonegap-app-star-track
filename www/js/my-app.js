@@ -2,14 +2,21 @@
 var isMaterial = Framework7.prototype.device.ios === false;
 var isIos = Framework7.prototype.device.ios === true;
 
+// Add the above as global variables for templates
+Template7.global = {
+  material: isMaterial,
+  ios: isIos,
+};
+
 // A template helper to turn ms durations to mm:ss
 // We need to be able to pad to 2 digits
 function pad2(number) {
   if (number <= 99) { number = ('0' + number).slice(-2); }
   return number;
 }
+
 // Now the actual helper to turn ms to mm:ss
-function durationFromMs(ms) {
+function durationFromMsHelper(ms) {
   if (typeof ms != 'number') {
     return '';
   }
@@ -20,13 +27,18 @@ function durationFromMs(ms) {
   var days = pad2(Math.floor(x));
   return minutes + ':' + seconds;
 }
-// Finally, register the helper with Template7
-Template7.registerHelper('durationFromMs', durationFromMs);
 
-Template7.global = {
-  material: isMaterial,
-  ios: isIos,
-};
+// A stringify helper
+// Need to replace any double quotes in the data with the HTML char
+//  as it is being placed in the HTML attribute data-context
+function stringifyHelper(context) {
+  var str = JSON.stringify(context);
+  return str.replace(/"/g, '&quot;');
+}
+
+// Finally, register the helpers with Template7
+Template7.registerHelper('durationFromMs', durationFromMsHelper);
+Template7.registerHelper('stringify', stringifyHelper);
 
 // If we need to use custom DOM library, let's save it to $$ variable:
 var $$ = Dom7;
@@ -53,15 +65,16 @@ var myApp = new Framework7({
 // Add view
 var mainView = myApp.addView('.view-main', {
   // Because we want to use dynamic navbar, we need to enable it for this view:
-  dynamicNavbar: true
+  dynamicNavbar: true,
+  domCache: true,
 });
 
 // Handle Cordova Device Ready Event
-$$(document).on('deviceready', function() {
+$$(document).on('deviceready', function deviceIsReady() {
   console.log('Device is ready!');
 });
 
-$$(document).on('submit', '#search', function(e) {
+$$(document).on('submit', '#search', function searchSubmit(e) {
   e.preventDefault();
   var formData = myApp.formToJSON('#search');
   if (!formData.q) {
@@ -69,13 +82,14 @@ $$(document).on('submit', '#search', function(e) {
     return;
   }
 
-  formData.q = (formData.filter === 'all')
-    ? formData.q.trim()
-    : formData.filter + ':' + formData.q.trim();
+  if (formData.filter === 'all') {
+    formData.q = formData.q.trim();
+  } else {
+    formData.q = formData.filter + ':' + formData.q.trim();
+  }
   delete formData.filter;
   formData.explicit = !!formData.explicit.length;
   formData.type = 'track';
-  console.log(formData);
   $$('input').blur();
   myApp.showPreloader('Searching');
   $$.ajax({
@@ -83,8 +97,7 @@ $$(document).on('submit', '#search', function(e) {
     data: formData,
     processData: true,
     url: 'https://api.spotify.com/v1/search',
-    success: function (resp) {
-      console.log(resp.tracks);
+    success: function searchSuccess(resp) {
       myApp.hidePreloader();
       mainView.router.load({
         template: myApp.templates.results,
@@ -93,7 +106,7 @@ $$(document).on('submit', '#search', function(e) {
         },
       });
     },
-    error: function (xhr) {
+    error: function searchError(xhr) {
       myApp.hidePreloader();
       myApp.alert('An error has occurred', 'Search Error');
       console.log("Error on ajax call " + JSON.stringify(xhr));
@@ -101,3 +114,6 @@ $$(document).on('submit', '#search', function(e) {
   });
 });
 
+myApp.onPageInit('details', function(page) {
+  console.log(page.context);
+});

@@ -39,3 +39,20 @@ body {
 .ios .list-block .label-radio .item-media {
   display: none;
 }
+
+.card-content .track-name {
+  font-weight: bold;
+}
+
+.card-content .album-title {
+  font-style: italic;
+}
+
+.card-content .preview audio {
+  width: 100%;
+}
+
+.no-padding {
+  padding: 0;
+}
+

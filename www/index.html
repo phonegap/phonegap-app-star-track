@@ -186,7 +186,11 @@
             <ul>
               {{#each tracks.items}}
               <li>
-                <a href="#" class="item-link item-content">
+                <a href="#" class="item-link item-content"
+                  data-item="{{@index}}"
+                  data-context="{{stringify this}}"
+                  data-template="details"
+                >
                   <div class="item-media">
                     <img width="80" src="{{this.album.images[0].url}}">
                   </div>
@@ -202,6 +206,62 @@
               </li>
               {{/each}}
             </ul>
+          </div>
+        </div>
+    </div>
+  </script>
+
+  <script type="text/template7" id="details">
+    <!-- Dynamic navbar for iOS theme -->
+    {{#if @global.ios}}
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="left sliding">
+                <a href="#" class="back link">
+                  <i class="icon icon-back"></i>
+                  <span>Results</span>
+                </a>
+            </div>
+            <div class="center sliding">Track details</div>
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="page" data-page="details">
+        <!-- Fixed navbar for Material theme -->
+        {{#if @global.material}}
+        <div class="navbar">
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="back link"><i class="icon icon-back"></i></a>
+              </div>
+              <div class="center">Track details</div>
+            </div>
+        </div>
+        {{/if}}
+
+        <div class="page-content">
+          <div class="content-block"></div>
+          <div class="card">
+            <div class="card-header no-border no-padding">
+              <img src="{{this.album.images[0].url}}" width="100%" />
+            </div>
+            <div class="card-content">
+              <div class="card-content-inner">
+                <div class="track-name">{{this.name}}</div>
+                <div class="artists-name">by {{this.artists[0].name}}</div>
+                <div class="album-title">{{this.album.name}}</div>
+              </div>
+            </div>
+            <div class="card-content">
+              <div class="card-content-inner preview">
+                <audio controls src="{{this.preview_url}}"></audio>
+              </div>
+            </div>
+            <div class="card-footer">
+              <div>Track duration</div>
+              <div>{{durationFromMs this.duration_ms}}</div>
+            </div>
           </div>
         </div>
     </div>
