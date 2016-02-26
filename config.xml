@@ -30,4 +30,5 @@
     <plugin name="cordova-plugin-console" spec="~1.0.1" />
     <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <preference name="StatusBarStyle" value="default" />
+    <plugin name="cordova-plugin-media" spec="~2.1.0" />
 </widget>
