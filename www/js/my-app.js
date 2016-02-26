@@ -166,20 +166,6 @@ function setPlaybackControlsStatus(status) {
   }
 }
 
-function mediaPreviewStatus(status) {
-  var progressbar = $$('.playback-controls .duration .progressbar');
-  switch (status) {
-    case 2: // playing
-      setPlaybackControlsStatus('playing');
-      myApp.setProgressbar(progressbar, 0, 0);
-      break;
-    case 4: // stopped
-      setPlaybackControlsStatus('stopped');
-    default:
-      // Default fall back not needed
-  }
-}
-
 function monitorMediaPreviewCurrentPosition(media) {
   var percent = 0;
   var progressbar = $$('.playback-controls .duration .progressbar');
@@ -202,23 +188,37 @@ function monitorMediaPreviewCurrentPosition(media) {
   }, 100);
 }
 
-function mediaPreviewSuccess() {
+function mediaPreviewSuccessCallback() {
   var progressbar = $$('.playback-controls .duration .progressbar');
   setPlaybackControlsStatus('stopped');
   myApp.setProgressbar(progressbar, 0, 100);
 }
 
-function mediaPreviewError(error) {
+function mediaPreviewErrorCallback(error) {
   setPlaybackControlsStatus('stopped');
   console.error(error);
+}
+
+function mediaPreviewStatusCallback(status) {
+  var progressbar = $$('.playback-controls .duration .progressbar');
+  switch (status) {
+    case 2: // playing
+      setPlaybackControlsStatus('playing');
+      myApp.setProgressbar(progressbar, 0, 0);
+      break;
+    case 4: // stopped
+      setPlaybackControlsStatus('stopped');
+    default:
+      // Default fall back not needed
+  }
 }
 
 myApp.onPageInit('details', function(page) {
   // Create media object on page load so as to let it start buffering right
   //  away...
   var previewUrl = page.context.preview_url;
-  mediaPreview = new Media(previewUrl, mediaPreviewSuccess, mediaPreviewError,
-    mediaPreviewStatus);
+  mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
+    mediaPreviewErrorCallback, mediaPreviewStatusCallback);
   $$('.playback-controls a').on('click', playbackControlsClickHandler);
 });
 
