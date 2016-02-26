@@ -228,7 +228,6 @@
         {{/if}}
 
         <div class="page-content">
-          <div class="content-block"></div>
           <div class="card">
             <div class="card-header no-border no-padding">
               <img src="{{this.album.images[0].url}}" width="100%" />
@@ -242,7 +241,20 @@
             </div>
             <div class="card-content">
               <div class="card-content-inner preview">
-                <audio controls src="{{this.preview_url}}"></audio>
+                <div class="playback-controls">
+                  <a class="play-button play displayed" href="#">
+                    <div class="arrow-right play"></div>
+                  </a>
+                  <a class="pending-button pending" href="#">
+                    <span class="preloader pending"></span>
+                  </a>
+                  <a class="stop-button stop" href="#">
+                    <div class="square stop"></div>
+                  </a>
+                  <div class="duration">
+                    <span data-progress="0" class="progressbar"></span>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="card-footer">

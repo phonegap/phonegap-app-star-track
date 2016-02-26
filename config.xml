@@ -118,4 +118,5 @@
     </platform>
 
     <preference name="StatusBarStyle" value="default" />
+    <plugin name="cordova-plugin-media" spec="~2.1.0" />
 </widget>

@@ -74,9 +74,14 @@ $$(document).on('deviceready', function deviceIsReady() {
   console.log('Device is ready!');
 });
 
-$$(document).on('submit', '#search', function searchSubmit(e) {
-  e.preventDefault();
+/**
+ * Search
+ *  - functionality for the main search page
+ */
+
+function searchSubmit(e) {
   var formData = myApp.formToJSON('#search');
+  e.preventDefault();
   if (!formData.q) {
     myApp.alert('Please enter a search term', 'Search Error');
     return;
@@ -111,8 +116,115 @@ $$(document).on('submit', '#search', function searchSubmit(e) {
       console.log("Error on ajax call " + JSON.stringify(xhr));
     }
   });
-});
+}
+
+$$(document).on('submit', '#search', searchSubmit);
+
+/**
+ * Details page
+ *  - controls the playback controls and preview media object
+ */
+
+var mediaPreview = null;
+var mediaTimer = null;
+
+function playbackControlsClickHandler(e) {
+  var buttonTarget = $$(e.target);
+  if (buttonTarget.hasClass('play')) {
+    monitorMediaPreviewCurrentPosition(mediaPreview);
+    mediaPreview.play();
+    setPlaybackControlsStatus('pending');
+    return;
+  }
+  monitorMediaPreviewCurrentPosition();
+  mediaPreview.stop();
+  setPlaybackControlsStatus('stopped');
+  return;
+};
+
+function setPlaybackControlsStatus(status) {
+  var allButtons = $$('.playback-controls a');
+  var playButton = $$('.playback-controls .play-button');
+  var pendingButton = $$('.playback-controls .pending-button');
+  var stopButton = $$('.playback-controls .stop-button');
+  switch (status) {
+    case 'stopped':
+      allButtons.removeClass('displayed');
+      playButton.addClass('displayed');
+      break;
+    case 'pending':
+      allButtons.removeClass('displayed');
+      pendingButton.addClass('displayed');
+      break;
+    case 'playing':
+      allButtons.removeClass('displayed');
+      stopButton.addClass('displayed');
+      break;
+    default:
+      allButtons.removeClass('displayed');
+      playButton.addClass('displayed');
+  }
+}
+
+function mediaPreviewStatus(status) {
+  var progressbar = $$('.playback-controls .duration .progressbar');
+  switch (status) {
+    case 2: // playing
+      setPlaybackControlsStatus('playing');
+      myApp.setProgressbar(progressbar, 0, 0);
+      break;
+    case 4: // stopped
+      setPlaybackControlsStatus('stopped');
+    default:
+      // Default fall back not needed
+  }
+}
+
+function monitorMediaPreviewCurrentPosition(media) {
+  var percent = 0;
+  var progressbar = $$('.playback-controls .duration .progressbar');
+  // If no media object is provided, stop monitoring
+  if (!media) {
+    clearInterval(mediaTimer);
+    return;
+  }
+  mediaTimer = setInterval(function () {
+    media.getCurrentPosition(
+      function (position) {
+        if (position > -1) {
+          percent = (position / media.getDuration()) * 100;
+          myApp.setProgressbar(progressbar, percent);
+        }
+      },
+      function (e) {
+        console.error("Error getting position", e);
+      });
+  }, 100);
+}
+
+function mediaPreviewSuccess() {
+  var progressbar = $$('.playback-controls .duration .progressbar');
+  setPlaybackControlsStatus('stopped');
+  myApp.setProgressbar(progressbar, 0, 100);
+}
+
+function mediaPreviewError(error) {
+  setPlaybackControlsStatus('stopped');
+  console.error(error);
+}
 
 myApp.onPageInit('details', function(page) {
-  console.log(page.context);
+  // Create media object on page load so as to let it start buffering right
+  //  away...
+  var previewUrl = page.context.preview_url;
+  mediaPreview = new Media(previewUrl, mediaPreviewSuccess, mediaPreviewError,
+    mediaPreviewStatus);
+  $$('.playback-controls a').on('click', playbackControlsClickHandler);
+});
+
+myApp.onPageBeforeRemove('details', function(page) {
+  monitorMediaPreviewCurrentPosition();
+  mediaPreview.stop();
+  mediaPreview.release();
+  $$('.playback-controls a').off('click', playbackControlsClickHandler);
 });
