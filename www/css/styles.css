@@ -76,6 +76,11 @@ body {
 	padding: 16px 16px;
 }
 
+.playback-controls .pending-button .preloader {
+  width: 32px;
+  height: 32px;
+}
+
 .playback-controls a.displayed {
   opacity: 1;
   visibility: visible;
