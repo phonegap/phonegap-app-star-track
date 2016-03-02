@@ -115,3 +115,7 @@ body {
 .playback-controls .progressbar {
   display: inline-block;
 }
+
+.link.star {
+  padding: 0 12px;
+}

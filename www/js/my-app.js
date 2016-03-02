@@ -74,6 +74,26 @@ $$(document).on('deviceready', function deviceIsReady() {
   console.log('Device is ready!');
 });
 
+$$(document).on('click', '.panel .search-link', function searchLink() {
+  mainView.router.load({
+    pageName: 'index',
+    animatePages: false,
+  });
+});
+
+$$(document).on('click', '.panel .favorites-link', function searchLink() {
+  // @TODO fetch the favorites (if any) from localStorage
+  var favorites = JSON.parse(localStorage.getItem('favorites'));
+  console.log(favorites);
+  mainView.router.load({
+    template: myApp.templates.favorites,
+    animatePages: false,
+    context: {
+      tracks: favorites,
+    }
+  });
+});
+
 /**
  * Search
  *  - functionality for the main search page
@@ -214,13 +234,51 @@ function mediaPreviewStatusCallback(status) {
   }
 }
 
+function addOrRemoveFavorite(e) {
+  if (this.isFavorite) {
+    // remove
+    this.favoriteIds.splice(this.favoriteIds.indexOf(this.id), 1);
+    var favorites = this.favorites.filter(function(fave) {
+      console.log(this.id);
+      console.log(fave.id);
+      return fave.id !== this.id;
+    }, this);
+    this.favorites = favorites;
+    this.isFavorite = false;
+    $$('.link.star').html('☆');
+  } else {
+    // add
+    this.favorites.push(this.track);
+    this.favoriteIds.push(this.id);
+    this.isFavorite = true;
+    $$('.link.star').html('★');
+  }
+  localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  localStorage.setItem('favoriteIds', JSON.stringify(this.favoriteIds));
+}
+
 myApp.onPageInit('details', function(page) {
   // Create media object on page load so as to let it start buffering right
   //  away...
+  var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  var favoriteIds = JSON.parse(localStorage.getItem('favoriteIds')) || [];
+  var isFavorite = false;
+  if (favoriteIds.indexOf(page.context.id) !== -1) {
+    $$('.link.star').html('★');
+    isFavorite = true;
+  }
+  var pageContext = {
+    track: page.context,
+    id: page.context.id,
+    isFavorite: isFavorite,
+    favorites: favorites,
+    favoriteIds: favoriteIds,
+  };
   var previewUrl = page.context.preview_url;
   mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
     mediaPreviewErrorCallback, mediaPreviewStatusCallback);
   $$('.playback-controls a').on('click', playbackControlsClickHandler);
+  $$('.link.star').on('click', addOrRemoveFavorite.bind(pageContext));
 });
 
 myApp.onPageBeforeRemove('details', function(page) {
@@ -228,4 +286,9 @@ myApp.onPageBeforeRemove('details', function(page) {
   mediaPreview.stop();
   mediaPreview.release();
   $$('.playback-controls a').off('click', playbackControlsClickHandler);
+  $$('.link.star').off('click', addOrRemoveFavorite);
+});
+
+myApp.onPageInit('favorites', function(page) {
+  console.log(page.context);
 });
