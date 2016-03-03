@@ -33,7 +33,9 @@
   <!-- Left panel with cover effect-->
   <div class="panel panel-left panel-cover">
     <div class="content-block">
-      <p>Left panel content goes here</p>
+      <p>Links</p>
+      <a href="#" class="search-link close-panel">Search</a>
+      <a href="#" class="favorites-link close-panel">Favorites</a>
     </div>
   </div>
 
@@ -43,7 +45,7 @@
     <div class="view view-main">
       <!-- Top Navbar-->
       <div class="navbar">
-        <div class="navbar-inner">
+        <div class="navbar-inner" data-page="index">
           <div class="left">
             <!--
               Left link contains only icon - additional "icon-only" class
@@ -202,15 +204,20 @@
     <!-- Dynamic navbar for iOS theme -->
     {{#if @global.ios}}
     <div class="navbar">
-        <div class="navbar-inner">
-            <div class="left sliding">
-                <a href="#" class="back link">
-                  <i class="icon icon-back"></i>
-                  <span>Results</span>
-                </a>
-            </div>
-            <div class="center sliding">Track details</div>
+      <div class="navbar-inner">
+        <div class="left sliding">
+          <a href="#" class="back link">
+            <i class="icon icon-back"></i>
+              <span>Results</span>
+          </a>
         </div>
+        <div class="center sliding">Track details</div>
+        <div class="right">
+          <a href="#" class="link star">
+            &#10025;
+          </a>
+        </div>
+      </div>
     </div>
     {{/if}}
 
@@ -223,6 +230,11 @@
                 <a href="#" class="back link"><i class="icon icon-back"></i></a>
               </div>
               <div class="center">Track details</div>
+              <div class="right">
+                <a href="#" class="link star">
+                  &#10025;
+                </a>
+              </div>
             </div>
         </div>
         {{/if}}
@@ -262,6 +274,69 @@
               <div>{{durationFromMs this.duration_ms}}</div>
             </div>
           </div>
+        </div>
+    </div>
+  </script>
+
+  <script type="text/template7" id="favorites">
+    <!-- Dynamic navbar for iOS theme -->
+    {{#if @global.ios}}
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="left">
+          <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+        </div>
+        <div class="center sliding">Favorites</div>
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="page" data-page="favorites">
+        <!-- Fixed navbar for Material theme -->
+        {{#if @global.material}}
+          <div class="navbar">
+            <div class="navbar-inner">
+              <div class="left">
+                <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+              </div>
+            <div class="center sliding">Favorites</div>
+          </div>
+        </div>
+        {{/if}}
+
+        <div class="page-content">
+          {{#if tracks}}
+          <div class="content-block-title">Tracks</div>
+          <div class="list-block media-list">
+            <ul>
+              {{#each tracks}}
+              <li>
+                <a href="#" class="item-link item-content"
+                  data-item="{{@index}}"
+                  data-context="{{stringify this}}"
+                  data-template="details"
+                >
+                  <div class="item-media">
+                    <img width="80" src="{{this.album.images[0].url}}">
+                  </div>
+                  <div class="item-inner">
+                    <div class="item-title-row">
+                      <div class="item-title">{{this.name}}</div>
+                      <div class="item-after">{{durationFromMs this.duration_ms}}</div>
+                    </div>
+                    <div class="item-subtitle">{{this.artists[0].name}}</div>
+                    <div class="item-text">{{this.album.name}}</div>
+                  </div>
+                </a>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+          {{else}}
+          <div class="content-block">
+            <p>You haven't favorited any tracks! Use the search function and add some to favorites.</p>
+          </div>
+          {{/if}}
         </div>
     </div>
   </script>

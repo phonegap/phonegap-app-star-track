@@ -15,7 +15,7 @@ function pad2(number) {
   return number;
 }
 
-// Now the actual helper to turn ms to mm:ss
+// Now the actual helper to turn ms to [hh:]mm:ss
 function durationFromMsHelper(ms) {
   if (typeof ms != 'number') {
     return '';
@@ -24,8 +24,10 @@ function durationFromMsHelper(ms) {
   var seconds = pad2(Math.floor(x % 60));
   x /= 60;
   var minutes = pad2(Math.floor(x % 60));
-  var days = pad2(Math.floor(x));
-  return minutes + ':' + seconds;
+  x /= 60;
+  var hours = Math.floor(x % 24);
+  hours = hours ? pad2(hours) + ':' : '';
+  return hours + minutes + ':' + seconds;
 }
 
 // A stringify helper
@@ -74,6 +76,27 @@ $$(document).on('deviceready', function deviceIsReady() {
   console.log('Device is ready!');
 });
 
+$$(document).on('click', '.panel .search-link', function searchLink() {
+  mainView.router.load({
+    pageName: 'index',
+    animatePages: false,
+  });
+});
+
+$$(document).on('click', '.panel .favorites-link', function searchLink() {
+  // @TODO fetch the favorites (if any) from localStorage
+  var favorites = JSON.parse(localStorage.getItem('favorites'));
+  console.log(favorites);
+  mainView.router.load({
+    template: myApp.templates.favorites,
+    animatePages: false,
+    context: {
+      tracks: favorites,
+    },
+    reload: true,
+  });
+});
+
 /**
  * Search
  *  - functionality for the main search page
@@ -110,10 +133,11 @@ function searchSubmit(e) {
         },
       });
     },
-    error: function searchError(xhr) {
+    error: function searchError(xhr, err) {
       myApp.hidePreloader();
       myApp.alert('An error has occurred', 'Search Error');
-      console.log("Error on ajax call " + JSON.stringify(xhr));
+      console.error("Error on ajax call: " + err);
+      console.log(JSON.stringify(xhr));
     }
   });
 }
@@ -213,18 +237,106 @@ function mediaPreviewStatusCallback(status) {
   }
 }
 
+function addOrRemoveFavorite(e) {
+  if (this.isFavorite) {
+    // remove the favorite from the arrays
+    this.favoriteIds.splice(this.favoriteIds.indexOf(this.id), 1);
+    var favorites = this.favorites.filter(function(fave) {
+      console.log(this.id);
+      console.log(fave.id);
+      return fave.id !== this.id;
+    }, this);
+    this.favorites = favorites;
+    this.isFavorite = false;
+    // update the UI
+    $$('.link.star').html('&#10025;');
+  } else {
+    // add the favorite to the arrays
+    this.favorites.push(this.track);
+    this.favoriteIds.push(this.id);
+    this.isFavorite = true;
+    // update the UI
+    $$('.link.star').html('&#10029;');
+  }
+  if (this.favorites.length === 0) {
+    // clear it out so the template knows it's empty when it returns
+    //  as {{#if favorites}} sees an empty array as truthy
+    this.favorites = null;
+  }
+  // save it back to localStorage
+  localStorage.setItem('favorites', JSON.stringify(this.favorites));
+  localStorage.setItem('favoriteIds', JSON.stringify(this.favoriteIds));
+  // if we got here from the favorites page, we need to reload its context
+  //  so it will update as soon as we go "back"
+  if (this.fromPage === 'favorites') {
+    // Reload the previous page
+    mainView.router.load({
+      template: myApp.templates.favorites,
+      context: {
+        tracks: this.favorites,
+      },
+      reload: true,
+      reloadPrevious: true,
+    });
+  }
+}
+
 myApp.onPageInit('details', function(page) {
-  // Create media object on page load so as to let it start buffering right
-  //  away...
   var previewUrl = page.context.preview_url;
-  mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
-    mediaPreviewErrorCallback, mediaPreviewStatusCallback);
+  if (typeof Media !== 'undefined') {
+    // Create media object on page load so as to let it start buffering right
+    //  away...
+    mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
+      mediaPreviewErrorCallback, mediaPreviewStatusCallback);
+  } else {
+    // Create a dummy media object for when viewing in a browser, etc
+    //  this really is optional, using `phonegap serve` polyfills the
+    //  Media plugin
+    function noMedia() {
+      myApp.alert('Media playback not supported', 'Media Error');
+      setTimeout(function() {
+        setPlaybackControlsStatus('stopped');
+        mediaPreviewStatusCallback(4); // stopped
+        console.error('No media plugin available');
+      }, 0);
+    }
+    mediaPreview = {
+      play: noMedia,
+      stop: function() {},
+      release: function() {},
+      getCurrentPosition: function() {},
+    };
+  }
+
+  // fetch the favorites
+  var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+  var favoriteIds = JSON.parse(localStorage.getItem('favoriteIds')) || [];
+  var isFavorite = false;
+  if (favoriteIds.indexOf(page.context.id) !== -1) {
+    $$('.link.star').html('&#10029;');
+    isFavorite = true;
+  }
+  // set up a context object to pass to the handler
+  var pageContext = {
+    track: page.context,
+    id: page.context.id,
+    isFavorite: isFavorite,
+    favorites: favorites,
+    favoriteIds: favoriteIds,
+    fromPage: page.fromPage.name,
+  };
+
+  // bind the playback and favorite controls
   $$('.playback-controls a').on('click', playbackControlsClickHandler);
+  $$('.link.star').on('click', addOrRemoveFavorite.bind(pageContext));
 });
 
 myApp.onPageBeforeRemove('details', function(page) {
+  // stop playing before leaving the page
   monitorMediaPreviewCurrentPosition();
   mediaPreview.stop();
   mediaPreview.release();
+  // keep from leaking memory by removing the listeners we don't need
   $$('.playback-controls a').off('click', playbackControlsClickHandler);
+  $$('.link.star').off('click', addOrRemoveFavorite);
 });
