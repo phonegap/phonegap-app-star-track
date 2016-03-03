@@ -41,6 +41,11 @@ body {
   display: none;
 }
 
+.panel-left .content-block a {
+  display: block;
+  padding: 16px 0;
+}
+
 .card-content .track-name {
   font-weight: bold;
 }
@@ -114,4 +119,8 @@ body {
 
 .playback-controls .progressbar {
   display: inline-block;
+}
+
+.link.star {
+  padding: 0 12px;
 }
