@@ -15,7 +15,7 @@ function pad2(number) {
   return number;
 }
 
-// Now the actual helper to turn ms to mm:ss
+// Now the actual helper to turn ms to [hh:]mm:ss
 function durationFromMsHelper(ms) {
   if (typeof ms != 'number') {
     return '';
@@ -24,8 +24,10 @@ function durationFromMsHelper(ms) {
   var seconds = pad2(Math.floor(x % 60));
   x /= 60;
   var minutes = pad2(Math.floor(x % 60));
-  var days = pad2(Math.floor(x));
-  return minutes + ':' + seconds;
+  x /= 60;
+  var hours = Math.floor(x % 24);
+  hours = hours ? pad2(hours) + ':' : '';
+  return hours + minutes + ':' + seconds;
 }
 
 // A stringify helper
@@ -90,7 +92,8 @@ $$(document).on('click', '.panel .favorites-link', function searchLink() {
     animatePages: false,
     context: {
       tracks: favorites,
-    }
+    },
+    reload: true,
   });
 });
 
@@ -131,10 +134,11 @@ function searchSubmit(e) {
         },
       });
     },
-    error: function searchError(xhr) {
+    error: function searchError(xhr, err) {
       myApp.hidePreloader();
       myApp.alert('An error has occurred', 'Search Error');
-      console.log("Error on ajax call " + JSON.stringify(xhr));
+      console.error("Error on ajax call: " + err);
+      console.log(JSON.stringify(xhr));
     }
   });
 }
@@ -245,16 +249,31 @@ function addOrRemoveFavorite(e) {
     }, this);
     this.favorites = favorites;
     this.isFavorite = false;
-    $$('.link.star').html('☆');
+    $$('.link.star').html('&#10025;');
   } else {
     // add
     this.favorites.push(this.track);
     this.favoriteIds.push(this.id);
     this.isFavorite = true;
-    $$('.link.star').html('★');
+    $$('.link.star').html('&#10029;');
+  }
+  if (this.favorites.length === 0) {
+    // Clear it out so the template knows it's empty
+    this.favorites = null;
   }
   localStorage.setItem('favorites', JSON.stringify(this.favorites));
   localStorage.setItem('favoriteIds', JSON.stringify(this.favoriteIds));
+  if (this.fromPage === 'favorites') {
+    // Reload the previous page
+    mainView.router.load({
+      template: myApp.templates.favorites,
+      context: {
+        tracks: this.favorites,
+      },
+      reload: true,
+      reloadPrevious: true,
+    });
+  }
 }
 
 myApp.onPageInit('details', function(page) {
@@ -264,7 +283,7 @@ myApp.onPageInit('details', function(page) {
   var favoriteIds = JSON.parse(localStorage.getItem('favoriteIds')) || [];
   var isFavorite = false;
   if (favoriteIds.indexOf(page.context.id) !== -1) {
-    $$('.link.star').html('★');
+    $$('.link.star').html('&#10029;');
     isFavorite = true;
   }
   var pageContext = {
@@ -273,10 +292,30 @@ myApp.onPageInit('details', function(page) {
     isFavorite: isFavorite,
     favorites: favorites,
     favoriteIds: favoriteIds,
+    fromPage: page.fromPage.name,
   };
   var previewUrl = page.context.preview_url;
-  mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
-    mediaPreviewErrorCallback, mediaPreviewStatusCallback);
+  if (typeof Media !== 'undefined') {
+    mediaPreview = new Media(previewUrl, mediaPreviewSuccessCallback,
+      mediaPreviewErrorCallback, mediaPreviewStatusCallback);
+  } else {
+    // Create a dummy media object for when viewing in a browser, etc
+    function noMedia() {
+      myApp.alert('Media playback not supported', 'Media Error');
+      setTimeout(function() {
+        setPlaybackControlsStatus('stopped');
+        mediaPreviewStatusCallback(4); // stopped
+        console.error('No media plugin available');
+      }, 0);
+    }
+    function noop() {}
+    mediaPreview = {
+      play: noMedia,
+      stop: noop,
+      release: noop,
+      getCurrentPosition: noop,
+    };
+  }
   $$('.playback-controls a').on('click', playbackControlsClickHandler);
   $$('.link.star').on('click', addOrRemoveFavorite.bind(pageContext));
 });
