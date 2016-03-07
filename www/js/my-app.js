@@ -80,6 +80,7 @@ $$(document).on('click', '.panel .search-link', function searchLink() {
   mainView.router.load({
     pageName: 'index',
     animatePages: false,
+    reload: true,
   });
 });
 
