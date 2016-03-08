@@ -1,5 +1,14 @@
 # Example app CHANGELOG:
 
+## Issue 9 - Sidebar router occasionally displays blank screen
+
+### js/my-app.js
+
+1. Added a check to the click event on the Search link in the sidebar
+  * Tests to see if the "index" (i.e.: the search page) has the class 'cached'.
+  * If it does, then it is safe to load the index with the router.
+  * If it doesn't, then the index is probably the current page, so it just closes the panel and does nothing else.
+
 ## Bug fixes - [4119932](https://github.com/phonegap/phonegap-app-media/commit/4119932)
 
 ### js/my-app.js

@@ -77,11 +77,16 @@ $$(document).on('deviceready', function deviceIsReady() {
 });
 
 $$(document).on('click', '.panel .search-link', function searchLink() {
-  mainView.router.load({
-    pageName: 'index',
-    animatePages: false,
-    reload: true,
-  });
+  // Only change route if not already on the index
+  //  It would be nice to have a better way of knowing this...
+  var indexPage = $$('.page[data-page=index]');
+  if (indexPage.hasClass('cached')) {
+    mainView.router.load({
+      pageName: 'index',
+      animatePages: false,
+      reload: true,
+    });
+  }
 });
 
 $$(document).on('click', '.panel .favorites-link', function searchLink() {
