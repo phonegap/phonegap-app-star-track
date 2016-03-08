@@ -1,6 +1,10 @@
 # Example app CHANGELOG:
 
-## Issue 9 - Sidebar router occasionally displays blank screen
+## Issue 8 - Update Framework7 dependency version
+
+Updated Framework7 to latest (1.4.2)
+
+## Issue 9 - Sidebar router occasionally displays blank scree - [d2321d1](https://github.com/phonegap/phonegap-app-media/commit/d2321d1)
 
 ### js/my-app.js
 
