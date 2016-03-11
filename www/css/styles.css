@@ -1,8 +1,23 @@
+html,
+body {
+  overflow: hidden;
+}
+
 body {
   -webkit-touch-callout: none;
   -webkit-text-size-adjust: none;
   -webkit-user-select: none;
           user-select: none;
+}
+
+.page-content {
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
+
+.views,
+.page {
+  overflow: hidden;
 }
 
 /*
