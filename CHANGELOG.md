@@ -1,6 +1,29 @@
 # Example app CHANGELOG:
 
-## Issue 9 - Sidebar router occasionally displays blank screen
+## Issue 6 - Selected menu item highlight
+
+### index.html
+
+1. Changed panel links to a list
+
+### css/styles.css
+
+1. iOS - panel background color changed to white
+2. iOS - panel overlay changed to a semi-transparent (why is iOS defaulting to transparent?)
+3. Material - removed the &gt; from panel list item-links
+4. Added `overflow: hidden;` to body and html to better support windows 
+
+## Issue 2 - Where is windows support?
+
+### config.xml
+
+1. Added `<preference name="windows-target-version" value="10.0" />`
+
+## Issue 8 - Update Framework7 dependency version - [c0594a5](https://github.com/phonegap/phonegap-app-media/commit/c0594a5)
+
+Updated Framework7 to latest (1.4.2)
+
+## Issue 9 - Sidebar router occasionally displays blank screen - [d2321d1](https://github.com/phonegap/phonegap-app-media/commit/d2321d1)
 
 ### js/my-app.js
 
