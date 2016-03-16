@@ -1,6 +1,8 @@
 # Example app CHANGELOG:
 
-## Issue 6 - Selected menu item highlight
+## Issues 6 and 2 (panel and windows support) [790bf7d](https://github.com/phonegap/phonegap-app-media/commit/790bf7d)
+
+Issue 6 - Selected menu item highlight
 
 ### index.html
 
@@ -11,13 +13,16 @@
 1. iOS - panel background color changed to white
 2. iOS - panel overlay changed to a semi-transparent (why is iOS defaulting to transparent?)
 3. Material - removed the &gt; from panel list item-links
-4. Added `overflow: hidden;` to body and html to better support windows 
 
-## Issue 2 - Where is windows support?
+Issue 2 - Where is windows support?
 
 ### config.xml
 
 1. Added `<preference name="windows-target-version" value="10.0" />`
+
+### css/styles.css
+
+1. Added `overflow: hidden;` to body and html to better support windows 
 
 ## Issue 8 - Update Framework7 dependency version - [c0594a5](https://github.com/phonegap/phonegap-app-media/commit/c0594a5)
 
