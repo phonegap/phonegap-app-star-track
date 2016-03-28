@@ -1,6 +1,19 @@
 # Example app CHANGELOG:
 
-## Issue 6 - Selected menu item highlight
+## Windows Icons
+
+### config.xml
+
+1. Added entries for Windows and WP8 icons
+2. Moved iOS and Android icons into a `res/icons` subfolder
+
+### res/icons
+
+1. Added Windows and WP8 icons
+
+## Issues 6 and 2 (panel and windows support) [790bf7d](https://github.com/phonegap/phonegap-app-media/commit/790bf7d)
+
+Issue 6 - Selected menu item highlight
 
 ### index.html
 
