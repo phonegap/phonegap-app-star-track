@@ -48,17 +48,22 @@ body {
   line-height: 40px;
 }
 
+.material .list-block .item-link .item-inner,
 .material .media-list .item-link .item-title-row {
   background-image: none;
 }
 
-.ios .list-block .label-radio .item-media {
-  display: none;
+.ios .panel {
+  background-color: #ffffff;
 }
 
-.panel-left .content-block a {
-  display: block;
-  padding: 16px 0;
+.ios.with-panel-left-cover .panel-overlay {
+  opacity: 1;
+  background: rgba(0,0,0,0.2);
+}
+
+.ios .list-block .label-radio .item-media {
+  display: none;
 }
 
 .card-content .track-name {
