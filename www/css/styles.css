@@ -10,6 +10,16 @@ body {
           user-select: none;
 }
 
+.page-content {
+  touch-action: pan-y;
+  -ms-touch-action: pan-y;
+}
+
+.views,
+.page {
+  overflow: hidden;
+}
+
 /*
    statusbar-overlay sets the background color for the overlay. Black text is the default when the statusbar plugin is not added. When the
    statusbar plugin is added, it also adds default setting to make the content white via:

@@ -1,15 +1,30 @@
 # Example app CHANGELOG:
 
-## Windows Icons
+## Final Windows tweaks and actual icons
+
+### res/icons
+
+1. Added Windows and WP8 icons (not actually in the previous commit)
+
+### css/styles.css
+
+1. `touch-action: pan-y` and `-ms-touch-action: pan-y` to `.page-content` to ensure proper scrolling  in WP8
+
+### index.html
+
+1. Added `winstore-jscompat.js` script tag
+
+### lib/MSOpenTech
+
+1. Added `winstore-jscompat.js` from https://github.com/MSOpenTech/winstore-jscompat
+  * Allows `js/init-styles.js` to `append` css tags to head. Basically it is a compatibility layer to allow innerHTML, etc.
+
+## Windows Icons - [2495055](https://github.com/phonegap/phonegap-app-media/commit/2495055)
 
 ### config.xml
 
 1. Added entries for Windows and WP8 icons
 2. Moved iOS and Android icons into a `res/icons` subfolder
-
-### res/icons
-
-1. Added Windows and WP8 icons
 
 ## Issues 6 and 2 (panel and windows support) [790bf7d](https://github.com/phonegap/phonegap-app-media/commit/790bf7d)
 
