@@ -140,7 +140,3 @@ body {
 .playback-controls .progressbar {
   display: inline-block;
 }
-
-.link.star {
-  font-size: 160%;
-}

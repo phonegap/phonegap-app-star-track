@@ -1,7 +1,31 @@
 # Example app CHANGELOG:
 
-## Final Windows tweaks and actual icons - [5bace68](https://github.com/phonegap/phonegap-app-media/commit/5bace68)
+## UX issues from feedback
 
+Added Font-Awesome - http://fontawesome.io - issue #12
+    
+    Font Awesome by Dave Gandy - http://fontawesome.io
+
+### css/styles.css
+
+1. Removed font-size increase for favourite icon (not needed now it is a font-icon) - issue #12
+
+### js/my-app.js
+
+1. Removed check for the explicit form field - issue #11
+2. Fixed the bug with adding, removing and adding favourites - issue #14
+3. Changed from HTML entity star to font-awesome star - issue #12
+
+### index.html
+
+1. Added Font-Awesome - http://fontawesome.io - issue #12
+2. Changed from HTML entity star to font-awesome star - issue #12
+3. Retitled the left panel from "Links" to "Menu" - issue #16
+4. Reduced number of times the word "search" occurs on the main search page - issue #10 
+5. Removed the "show explicit results" form field - issue #11
+6. Added result count to results page - issue #13
+
+## Final Windows tweaks and actual icons - [5bace68](https://github.com/phonegap/phonegap-app-media/commit/5bace68)
 
 ### res/icons
 

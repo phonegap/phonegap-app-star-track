@@ -122,7 +122,6 @@ function searchSubmit(e) {
     formData.q = formData.filter + ':' + formData.q.trim();
   }
   delete formData.filter;
-  formData.explicit = !!formData.explicit.length;
   formData.type = 'track';
   $$('input').blur();
   myApp.showPreloader('Searching');
@@ -132,6 +131,7 @@ function searchSubmit(e) {
     processData: true,
     url: 'https://api.spotify.com/v1/search',
     success: function searchSuccess(resp) {
+      resp.tracks.count = resp.tracks.items.length === 25 ? "25 (max)" : resp.tracks.items.length;
       myApp.hidePreloader();
       mainView.router.load({
         template: myApp.templates.results,
@@ -256,14 +256,15 @@ function addOrRemoveFavorite(e) {
     this.favorites = favorites;
     this.isFavorite = false;
     // update the UI
-    $$('.link.star').html('&#10025;');
+    $$('.link.star').html('<i class="fa fa-star-o"></i>');
   } else {
     // add the favorite to the arrays
+    if (this.favorites === null) this.favorites = [];
     this.favorites.push(this.track);
     this.favoriteIds.push(this.id);
     this.isFavorite = true;
     // update the UI
-    $$('.link.star').html('&#10029;');
+    $$('.link.star').html('<i class="fa fa-star"></i>');
   }
   if (this.favorites.length === 0) {
     // clear it out so the template knows it's empty when it returns
@@ -320,7 +321,7 @@ myApp.onPageInit('details', function(page) {
   var favoriteIds = JSON.parse(localStorage.getItem('favoriteIds')) || [];
   var isFavorite = false;
   if (favoriteIds.indexOf(page.context.id) !== -1) {
-    $$('.link.star').html('&#10029;');
+    $$('.link.star').html('<i class="fa fa-star"></i>');
     isFavorite = true;
   }
   // set up a context object to pass to the handler
