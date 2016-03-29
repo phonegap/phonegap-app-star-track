@@ -1,6 +1,6 @@
 # Example app CHANGELOG:
 
-## UX issues from feedback
+## UX issues from feedback - [6c1466a](https://github.com/phonegap/phonegap-app-media/commit/6c1466a)
 
 Added Font-Awesome - http://fontawesome.io - issue #12
     
