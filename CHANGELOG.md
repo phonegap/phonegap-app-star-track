@@ -1,5 +1,11 @@
 # Example app CHANGELOG:
 
+## UX issues from feedback - pt 2 []()
+
+### index.html
+
+1. Added better font-awesome icon for the hamburger menu
+
 ## UX issues from feedback - [6c1466a](https://github.com/phonegap/phonegap-app-media/commit/6c1466a)
 
 Added Font-Awesome - http://fontawesome.io - issue #12
