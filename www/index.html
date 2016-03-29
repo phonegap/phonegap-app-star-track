@@ -20,6 +20,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
+  <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
 
   <title>PhoneGap Media App</title>
 </head>
@@ -33,9 +34,7 @@
   <!-- Left panel with cover effect-->
   <div class="panel panel-left panel-cover">
     <!--<div class="content-block">-->
-      <!--<p><a href="#" class="link search-link close-panel">Search</a></p>-->
-      <!--<p><a href="#" class="link favorites-link close-panel">Favorites</a></p>-->
-    <div class="content-block-title">Links</div>
+    <div class="content-block-title">Menu</div>
     <div class="list-block">
       <ul>
         <li>
@@ -81,7 +80,7 @@
           <!-- Scrollable page content -->
           <div class="page-content">
             <form action="#" method="GET" id="search">
-              <div class="content-block-title">Search</div>
+              <div class="content-block-title"></div>
               <div class="list-block">
                 <ul>
                   <li>
@@ -95,7 +94,7 @@
                       </div>
                     </div>
                   </li>
-                  <li class="item-divider">Limit search</li>
+                  <li class="item-divider">Limit to:</li>
                   <li>
                     <label class="label-radio item-content">
                       <!-- Checked by default -->
@@ -148,7 +147,7 @@
               </div>
               <input type="hidden" name="limit" value="25" />
               <div class="content-block">
-                <input type="submit" class="button button-big button-fill search-submit" value="Search" />
+                <input type="submit" class="button button-big button-fill search-submit" value="Find Tracks" />
               </div>
             </form>
           </div>
@@ -187,7 +186,7 @@
         {{/if}}
 
         <div class="page-content">
-          <div class="content-block-title">Tracks</div>
+          <div class="content-block-title">{{tracks.count}} tracks returned</div>
           <div class="list-block media-list">
             <ul>
               {{#each tracks.items}}
@@ -231,7 +230,7 @@
         <div class="center sliding">Track details</div>
         <div class="right">
           <a href="#" class="link star">
-            &#10025;
+            <i class="fa fa-star-o"></i>
           </a>
         </div>
       </div>
@@ -249,7 +248,7 @@
               <div class="center">Track details</div>
               <div class="right">
                 <a href="#" class="link star">
-                  &#10025;
+                  <i class="fa fa-star-o"></i>
                 </a>
               </div>
             </div>
