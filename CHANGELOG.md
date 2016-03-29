@@ -1,6 +1,6 @@
 # Example app CHANGELOG:
 
-## UX issues from feedback - pt 2 []()
+## UX issues from feedback - pt 2 - [382788b](https://github.com/phonegap/phonegap-app-media/commit/382788b)
 
 ### index.html
 
