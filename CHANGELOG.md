@@ -1,6 +1,7 @@
 # Example app CHANGELOG:
 
-## Final Windows tweaks and actual icons
+## Final Windows tweaks and actual icons - [5bace68](https://github.com/phonegap/phonegap-app-media/commit/5bace68)
+
 
 ### res/icons
 
