@@ -1,5 +1,20 @@
 # Example app CHANGELOG:
 
+## Name Change
+
+### config.xml
+
+1. Changed name and id
+
+### index.html
+
+1. Changed title
+
+### README.md
+
+1. Changed header
+2. Changed subtitle
+
 ## UX issues from feedback - pt 2 - [382788b](https://github.com/phonegap/phonegap-app-media/commit/382788b)
 
 ### index.html

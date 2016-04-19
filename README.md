@@ -1,6 +1,6 @@
-# PhoneGap Media App
+# Star Track
 
-An example app using [Framework7 HTML Framework](http://framework7.io/) and the [Spotify API](https://developer.spotify.com/web-api/).
+A PhoneGap example app using [Framework7 HTML Framework](http://framework7.io/) and the [Spotify API](https://developer.spotify.com/web-api/).
 
 ## Previewing the app
 
