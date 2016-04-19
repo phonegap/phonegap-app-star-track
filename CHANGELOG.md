@@ -14,6 +14,7 @@
 
 1. Changed header
 2. Changed subtitle
+3. Changed instructions
 
 ## UX issues from feedback - pt 2 - [382788b](https://github.com/phonegap/phonegap-app-media/commit/382788b)
 

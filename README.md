@@ -11,8 +11,8 @@ A PhoneGap example app using [Framework7 HTML Framework](http://framework7.io/) 
 ### Clone
 
 ```
-git clone https://github.com/phonegap/phonegap-app-media
-cd phonegap-app-media
+git clone https://github.com/phonegap/phonegap-app-star-track
+cd phonegap-app-star-track
 phonegap serve
 ```
 
@@ -21,8 +21,8 @@ phonegap serve
 Alternatively, you can use the app as a template for the PhoneGap CLI:
 
 ```
-phonegap create PGMediaApp --template https://github.com/phonegap/phonegap-app-media
-cd PGMediaApp
+phonegap create StarTrack --template https://github.com/phonegap/phonegap-app-star-track
+cd StarTrack
 phonegap serve
 ```
 
