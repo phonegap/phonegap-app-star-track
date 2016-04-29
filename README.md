@@ -21,7 +21,7 @@ phonegap serve
 Alternatively, you can use the app as a template for the PhoneGap CLI:
 
 ```
-phonegap create StarTrack --template https://github.com/phonegap/phonegap-app-star-track
+phonegap create StarTrack --template phonegap-app-star-track
 cd StarTrack
 phonegap serve
 ```
