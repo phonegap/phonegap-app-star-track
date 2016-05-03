@@ -239,6 +239,7 @@ function mediaPreviewStatusCallback(status) {
       break;
     case 4: // stopped
       setPlaybackControlsStatus('stopped');
+      break;
     default:
       // Default fall back not needed
   }
