@@ -92,7 +92,6 @@ $$(document).on('click', '.panel .search-link', function searchLink() {
 $$(document).on('click', '.panel .favorites-link', function searchLink() {
   // @TODO fetch the favorites (if any) from localStorage
   var favorites = JSON.parse(localStorage.getItem('favorites'));
-  console.log(favorites);
   mainView.router.load({
     template: myApp.templates.favorites,
     animatePages: false,
@@ -250,8 +249,6 @@ function addOrRemoveFavorite(e) {
     // remove the favorite from the arrays
     this.favoriteIds.splice(this.favoriteIds.indexOf(this.id), 1);
     var favorites = this.favorites.filter(function(fave) {
-      console.log(this.id);
-      console.log(fave.id);
       return fave.id !== this.id;
     }, this);
     this.favorites = favorites;

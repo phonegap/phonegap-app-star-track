@@ -1,5 +1,15 @@
 # Example app CHANGELOG:
 
+## A few tweaks and updates
+
+### my-app.js
+
+1. Removed some `console.log` statements
+
+### img/logo.png
+
+1. Added an image to satisfy the SplashScreen's browser implementation
+
 ## Name Change
 
 ### config.xml
