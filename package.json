@@ -1,6 +1,6 @@
 {
   "name": "phonegap-app-star-track",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A PhoneGap example app using Framework7 and the Spotify API.",
   "repository": {
     "type": "git",
