@@ -1,5 +1,13 @@
 # Example app CHANGELOG:
 
+## Plugin updates
+
+### config.xml
+
+1. Updated media plugin to 2.3.0
+2. Updated statusbar plugin to 2.1.3
+3. Updated console plugin to 1.0.3
+
 ## A few tweaks and updates
 
 ### my-app.js
