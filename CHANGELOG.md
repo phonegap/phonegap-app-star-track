@@ -1,5 +1,11 @@
 # Example app CHANGELOG:
 
+## Engine tags
+
+### config.xml
+
+1. Added iOS as a saved platform
+
 ## Plugin updates
 
 ### config.xml
