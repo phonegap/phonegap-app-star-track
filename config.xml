@@ -15,6 +15,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <icon src="www/icon.png" />
     <platform name="windows">
         <preference name="windows-target-version" value="10.0" />
     </platform>
