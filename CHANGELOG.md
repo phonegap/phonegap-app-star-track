@@ -1,5 +1,15 @@
 # Example app CHANGELOG:
 
+## Tweaks for the Desktop App
+
+### index.html
+
+1. opened up the CSP to allow * for websockets
+
+### config.xml
+
+1. added an icon entry for the desktop app
+
 ## Engine tags
 
 ### config.xml
