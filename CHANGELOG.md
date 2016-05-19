@@ -1,5 +1,11 @@
 # Example app CHANGELOG:
 
+## Tweaks for clarity
+
+### index.html
+
+1. Removed extraneous comments that were untrue and confusing
+
 ## Tweaks for the Desktop App
 
 ### index.html
