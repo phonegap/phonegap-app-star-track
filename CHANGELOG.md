@@ -1,5 +1,15 @@
 # Example app CHANGELOG:
 
+## A few more fixes for the workshops
+
+### config.xml
+
+1. Reverted to cordova-plugin-statusbar@1.x till https://issues.apache.org/jira/browse/CB-10796 is fixed
+
+### index.html
+
+1. Changed the search input to type=text so that F7 can style it properly in dark mode.
+
 ## Tweaks for clarity
 
 ### index.html
