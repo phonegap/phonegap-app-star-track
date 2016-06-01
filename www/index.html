@@ -22,7 +22,7 @@
   <meta name="msapplication-tap-highlight" content="no">
   <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
 
-  <title>PhoneGap Media App</title>
+  <title>Star Track</title>
 </head>
 
 <body class="theme-green">
@@ -87,7 +87,7 @@
                     <div class="item-content">
                       <div class="item-inner">
                         <div class="item-input">
-                          <input type="search" name="q"
+                          <input type="text" name="q"
                             placeholder="track, artist or album"
                             autocorrect="off" autocapitalize="off">
                         </div>
@@ -97,7 +97,6 @@
                   <li class="item-divider">Limit to:</li>
                   <li>
                     <label class="label-radio item-content">
-                      <!-- Checked by default -->
                       <input type="radio" name="filter" value="track">
                       <div class="item-media">
                         <i class="icon icon-form-radio"></i>
@@ -109,7 +108,6 @@
                   </li>
                   <li>
                     <label class="label-radio item-content">
-                      <!-- Checked by default -->
                       <input type="radio" name="filter" value="artist">
                       <div class="item-media">
                         <i class="icon icon-form-radio"></i>
@@ -121,7 +119,6 @@
                   </li>
                   <li>
                     <label class="label-radio item-content">
-                      <!-- Checked by default -->
                       <input type="radio" name="filter" value="album">
                       <div class="item-media">
                         <i class="icon icon-form-radio"></i>
@@ -358,6 +355,7 @@
   </script>
 
   <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="lib/MSOpenTech/winstore-jscompat.js"></script>
   <script type="text/javascript" src="lib/framework7/js/framework7.min.js"></script>
   <script type="text/javascript" src="js/init-styles.js"></script>
   <script type="text/javascript" src="js/my-app.js"></script>

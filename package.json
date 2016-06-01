@@ -1,0 +1,21 @@
+{
+  "name": "phonegap-app-star-track",
+  "version": "1.0.10",
+  "description": "A PhoneGap example app using Framework7 and the Spotify API.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phonegap/phonegap-app-star-track.git"
+  },
+  "author": "Tommy-Carlos Williams",
+  "license": "Apache-2.0",
+  "keywords": [
+    "ecosystem:phonegap",
+    "ecosystem:cordova",
+    "cordova:template",
+    "phonegap:template"
+  ],
+  "bugs": {
+    "url": "https://github.com/phonegap/phonegap-app-star-track/issues"
+  },
+  "homepage": "https://github.com/phonegap/phonegap-app-star-track#readme"
+}

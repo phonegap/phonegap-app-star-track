@@ -1,6 +1,72 @@
 # Example app CHANGELOG:
 
-## UX issues from feedback - pt 2 []()
+## A few more fixes for the workshops
+
+### config.xml
+
+1. Reverted to cordova-plugin-statusbar@1.x till https://issues.apache.org/jira/browse/CB-10796 is fixed
+
+### index.html
+
+1. Changed the search input to type=text so that F7 can style it properly in dark mode.
+
+## Tweaks for clarity
+
+### index.html
+
+1. Removed extraneous comments that were untrue and confusing
+
+## Tweaks for the Desktop App
+
+### index.html
+
+1. opened up the CSP to allow * for websockets
+
+### config.xml
+
+1. added an icon entry for the desktop app
+
+## Engine tags
+
+### config.xml
+
+1. Added iOS as a saved platform
+
+## Plugin updates
+
+### config.xml
+
+1. Updated media plugin to 2.3.0
+2. Updated statusbar plugin to 2.1.3
+3. Updated console plugin to 1.0.3
+
+## A few tweaks and updates
+
+### my-app.js
+
+1. Removed some `console.log` statements
+
+### img/logo.png
+
+1. Added an image to satisfy the SplashScreen's browser implementation
+
+## Name Change
+
+### config.xml
+
+1. Changed name and id
+
+### index.html
+
+1. Changed title
+
+### README.md
+
+1. Changed header
+2. Changed subtitle
+3. Changed instructions
+
+## UX issues from feedback - pt 2 - [382788b](https://github.com/phonegap/phonegap-app-media/commit/382788b)
 
 ### index.html
 
@@ -57,10 +123,6 @@ Added Font-Awesome - http://fontawesome.io - issue #12
 1. Added entries for Windows and WP8 icons
 2. Moved iOS and Android icons into a `res/icons` subfolder
 
-### res/icons
-
-1. Added Windows and WP8 icons
-
 ## Issues 6 and 2 (panel and windows support) [790bf7d](https://github.com/phonegap/phonegap-app-media/commit/790bf7d)
 
 Issue 6 - Selected menu item highlight
@@ -74,13 +136,16 @@ Issue 6 - Selected menu item highlight
 1. iOS - panel background color changed to white
 2. iOS - panel overlay changed to a semi-transparent (why is iOS defaulting to transparent?)
 3. Material - removed the &gt; from panel list item-links
-4. Added `overflow: hidden;` to body and html to better support windows 
 
-## Issue 2 - Where is windows support?
+Issue 2 - Where is windows support?
 
 ### config.xml
 
 1. Added `<preference name="windows-target-version" value="10.0" />`
+
+### css/styles.css
+
+1. Added `overflow: hidden;` to body and html to better support windows 
 
 ## Issue 8 - Update Framework7 dependency version - [c0594a5](https://github.com/phonegap/phonegap-app-media/commit/c0594a5)
 
