@@ -11,7 +11,7 @@ A PhoneGap example app using [Framework7 HTML Framework](http://framework7.io/) 
 ### Clone
 
 ```
-git clone https://github.com/phonegap/phonegap-app-star-track
+git clone https://github.com/buluma/phonegap-app-star-track
 cd phonegap-app-star-track
 phonegap serve
 ```
@@ -40,4 +40,3 @@ cordova platform add android
 cordova run android --device
 ```
 
-etc...
