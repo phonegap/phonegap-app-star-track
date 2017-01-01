@@ -22,14 +22,14 @@
   <meta name="msapplication-tap-highlight" content="no">
   <link rel="stylesheet" href="lib/font-awesome-4.5.0/css/font-awesome.min.css" />
 
-  <title>Star Track</title>
+  <title>Shadowbot Tracks</title>
 </head>
 
 <body class="theme-green">
   <!-- Status bar overlay for full screen mode (PhoneGap) -->
   <div class="statusbar-overlay"></div>
 
-  <!-- Panels overlay-->
+  <!-- Panels overlay that will overlays app while panel is opened-->
   <div class="panel-overlay"></div>
   <!-- Left panel with cover effect-->
   <div class="panel panel-left panel-cover">
@@ -40,7 +40,7 @@
         <li>
           <a href="#" class="search-link item-content list-panel-all close-panel item-link">
             <div class="item-inner">
-              <div class="item-title">Search</div>
+              <div class="item-title">Music Search</div>
             </div>
           </a>
         </li>
@@ -48,6 +48,13 @@
           <a href="#" class="favorites-link item-content list-panel-all close-panel item-link">
             <div class="item-inner">
               <div class="item-title">Favorites</div>
+            </div>
+          </a>
+        </li>
+        <li>
+          <a href="messages.html" class="favorites-link item-content list-panel-all close-panel item-link">
+            <div class="item-inner">
+              <div class="item-title">Messages</div>
             </div>
           </a>
         </li>
@@ -70,7 +77,7 @@
             <a href="#" class="link icon-only open-panel"><i class="fa fa-bars"></i></a>
           </div>
           <!-- We need cool sliding animation on title element, so we have additional "sliding" class -->
-          <div class="center sliding">Search</div>
+          <div class="center sliding">Music Search</div>
         </div>
       </div>
       <!-- Pages container, because we use fixed-through navbar and toolbar, it has additional appropriate classes-->
@@ -144,7 +151,7 @@
               </div>
               <input type="hidden" name="limit" value="25" />
               <div class="content-block">
-                <input type="submit" class="button button-big button-fill search-submit" value="Find Tracks" />
+                <input type="submit" class="button button-big button-fill search-submit" value="Search" />
               </div>
             </form>
           </div>
@@ -259,9 +266,10 @@
             </div>
             <div class="card-content">
               <div class="card-content-inner">
-                <div class="track-name">{{this.name}}</div>
+                <div class="track-name">Track Name: {{this.name}}</div>
+                <div class="track-name">Track Popularity: {{this.popularity}}</div>
                 <div class="artists-name">by {{this.artists[0].name}}</div>
-                <div class="album-title">{{this.album.name}}</div>
+                <div class="album-title">Album: {{this.album.name}}</div>
               </div>
             </div>
             <div class="card-content">
