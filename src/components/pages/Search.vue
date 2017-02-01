@@ -13,7 +13,7 @@
         <f7-list-item>
           <f7-input type="text" name="q"
               placeholder="track, artist or album"
-              autocorrect="off" autocapitalize="off" v-model="q" />
+              autocorrect="off" autocapitalize="off" />
         </f7-list-item>
         <f7-list-group>
           <f7-list-item title="Limit to:" group-title></f7-list-item>
@@ -32,15 +32,8 @@
 </template>
 
 <script>
-  /* global window */
   /** eslint-disable no-console */
   export default {
-    data() {
-      return {
-        isMaterial: window.isMaterial,
-        q: '',
-      };
-    },
     methods: {
       onSubmit() {
         const { filter, limit, q } = this.$f7.formToJSON(`#${this.searchFormId}`);

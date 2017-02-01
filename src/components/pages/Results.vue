@@ -4,7 +4,7 @@
     <f7-block-title>{{ tracks.items ? `${tracks.items.length} tracks returned` : 'Loading...' }}</f7-block-title>
     <f7-list media-list>
         <f7-list-item v-for="item in tracks.items"
-          @click="clickItem(item)"
+          @click="clickItem(item.id)"
           :link="`/results/details/${item.id}`"
           :media="mediaItemImage(item.album.images[0].url)"
           :title="item.name"
@@ -31,8 +31,8 @@
       mediaItemImage(url) {
         return `<img width="80" src="${url}" />`;
       },
-      clickItem(item) {
-        this.$f7.mainView.router.loadPage(`/results/details/${item.id}`);
+      clickItem(id) {
+        this.$f7.mainView.router.loadPage(`/results/details/${id}`);
       },
     },
     created() {
