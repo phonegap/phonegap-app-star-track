@@ -1,7 +1,7 @@
 <template>
   <f7-page>
     <f7-navbar title="Results" back-link="Search" sliding></f7-navbar>
-    <f7-block-title>{{ tracks.items ? `${tracks.items.length} tracks returned` : 'Loading...' }}</f7-block-title>
+    <f7-block-title>{{ tracksReturned }}</f7-block-title>
     <f7-list media-list>
         <f7-list-item v-for="item in tracks.items"
           @click="clickItem(item.id)"
@@ -17,22 +17,47 @@
 </template>
 
 <script>
-  /* global fetch window */
-  import 'whatwg-fetch';
-  import { durationFromMs, fetchResults } from '../../utils';
+  /* global store fetch */
+  import { durationFromMs } from '../../utils/utils';
 
   export default {
+    name: 'Results',
     data() {
-      return window.store;
+      return store;
     },
     methods: {
-      fetchResults,
       durationFromMs,
       mediaItemImage(url) {
         return `<img width="80" src="${url}" />`;
       },
       clickItem(id) {
         this.$f7.mainView.router.loadPage(`/results/details/${id}`);
+      },
+      fetchResults() {
+        let { q } = this.$route.params;
+        const { limit, filter } = this.$route.params;
+        q = (filter === 'all') ? q : `${filter}:${q}`;
+        fetch(`https://api.spotify.com/v1/search?limit=${limit}&type=track&q=${q}`)
+          .then(response => response.json())
+          .then((json) => {
+            store.tracks = json.tracks;
+            // reduce the tracks by id
+            store.tracksById = store.tracks.items.reduce((a, b) => {
+              const c = a;
+              c[b.id] = b;
+              return c;
+            }, {});
+            console.log(store);
+            this.$f7.hidePreloader();
+          }).catch((ex) => {
+            console.log('fetching failed', ex);
+          });
+      },
+    },
+    computed: {
+      tracksReturned() {
+        const { items } = this.tracks;
+        return items ? `${items.length} tracks returned` : '';
       },
     },
     created() {

@@ -1,9 +1,13 @@
-import Favorites from './components/pages/Favorites.vue';
-import Search from './components/pages/Search.vue';
-import Results from './components/pages/Results.vue';
-import Details from './components/pages/Details.vue';
+import Favorites from './components/pages/Favorites';
+import Search from './components/pages/Search';
+import Results from './components/pages/Results';
+import Details from './components/pages/Details';
 
 export default [
+  {
+    path: '',
+    component: Search,
+  },
   {
     path: '/search/',
     component: Search,

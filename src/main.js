@@ -14,7 +14,7 @@ import Framework7Vue from 'framework7-vue';
 // Import Routes
 import Routes from './routes';
 
-import App from './App.vue';
+import App from './App';
 
 // Import F7 iOS Theme Styles
 /* eslint-disable no-unused-vars */
@@ -65,4 +65,6 @@ new Vue({
 window.store = {
   tracks: [],
   tracksById: {},
+  pending: false,
+  playing: false,
 };

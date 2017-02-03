@@ -13,15 +13,17 @@
         </div>
         <div class="card-content-inner preview">
           <div class="playback-controls">
-            <a class="play-button play displayed" href="#">
-              <div class="arrow-right play"></div>
-            </a>
-            <a class="pending-button pending" href="#">
-              <span class="preloader pending"></span>
-            </a>
-            <a class="stop-button stop" href="#">
-              <div class="square stop"></div>
-            </a>
+            <transition-group name="fade">
+              <a class="play-button play" v-show="stopped" href="#" @click.prevent="clickPlay" key="play">
+                <div class="arrow-right play"></div>
+              </a>
+              <a class="pending-button pending" v-show="pending" href="#" @click.prevent="clickPending" key="pending">
+                <span class="preloader pending"></span>
+              </a>
+              <a class="stop-button stop" v-show="playing" href="#" @click.prevent="clickStop" key="stop">
+                <div class="square stop"></div>
+              </a>
+            </transition-group>
             <div class="duration">
               <span data-progress="0" class="progressbar"></span>
             </div>
@@ -37,16 +39,44 @@
 </template>
 
 <script>
-  /* global window */
-  import { durationFromMs } from '../../utils';
+  /* global store */
+  import { durationFromMs } from '../../utils/utils';
 
   export default {
+    name: 'Details',
     data() {
-      return window.store.tracksById[this.$route.params.id];
+      return store.tracksById[this.$route.params.id];
+    },
+    methods: {
+      clickPlay() {
+        console.log('play clicked');
+        store.pending = true;
+        setTimeout(() => {
+          store.pending = false;
+          store.playing = true;
+        }, 1000);
+      },
+      clickPending() {
+        console.log('pending clicked');
+        store.playing = true;
+      },
+      clickStop() {
+        console.log('stop clicked');
+        store.playing = false;
+      },
     },
     computed: {
       duration() {
         return durationFromMs(this.duration_ms);
+      },
+      stopped() {
+        return !store.playing;
+      },
+      pending() {
+        return store.pending;
+      },
+      playing() {
+        return store.playing;
       },
     },
   };
@@ -81,8 +111,6 @@
   .playback-controls .pending-button,
   .playback-controls .stop-button {
     position: absolute;
-    opacity: 0.01;
-    visibility: hidden;
     display: block;
     box-sizing: border-box;
     width: 64px;
@@ -130,5 +158,12 @@
 
   .playback-controls .progressbar {
     display: inline-block;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .2s;
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0;
   }
 </style>

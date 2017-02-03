@@ -10,7 +10,7 @@
 
     <!-- Main Views -->
     <f7-views theme="green">
-      <f7-view id="main-view" navbar-through :dynamic-navbar="true" main>
+      <f7-view domCache id="main-view" navbar-through :dynamic-navbar="true" main>
         <!-- Navbar -->
         <f7-navbar v-if="isiOS">
           <f7-nav-left>
@@ -31,18 +31,19 @@
 </template>
 
 <script>
-  /* global window */
-  import Search from './components/pages/Search.vue';
-  import LeftPanel from './components/LeftPanel.vue';
+  /* global isiOS */
+  import Search from './components/pages/Search';
+  import LeftPanel from './components/LeftPanel';
 
   export default {
+    name: 'App',
     components: {
       'search-page': Search,
       'left-panel': LeftPanel,
     },
     data() {
       return {
-        isiOS: window.isiOS,
+        isiOS,
       };
     },
   };
