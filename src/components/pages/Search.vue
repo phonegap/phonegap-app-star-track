@@ -8,7 +8,7 @@
         Search
       </f7-nav-center>
     </f7-navbar>
-    <form form method="GET" id="search" @submit.prevent="onSubmit">
+    <form form method="GET" :id="searchFormId" @submit.prevent="onSubmit">
       <f7-list>
         <f7-list-item>
           <f7-input type="text" name="q"
@@ -37,13 +37,21 @@
     name: 'Search',
     methods: {
       onSubmit() {
-        const { filter, limit, q } = this.$f7.formToJSON('#search');
+        const { filter, limit, q } = this.$f7.formToJSON(`#${this.searchFormId}`);
         console.log(filter, limit, q);
         if (!q) {
           this.$f7.alert('Please enter a search term', 'Search Error');
           return;
         }
         this.$f7.mainView.router.loadPage(`/results/${filter}/${limit}/${q}`);
+      },
+    },
+    computed: {
+      searchFormId() {
+        // Oddities with the F7 router mean this page could be loaded twice
+        // (once for the root and another time if on the /search/ route)
+        // This makes sure this form's id is always unique
+        return `search-form-${Date.now()}`;
       },
     },
   };

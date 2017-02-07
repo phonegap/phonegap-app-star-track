@@ -10,6 +10,8 @@ selenium-debug.log
 platforms/
 plugins/
 
+www
+
 Thumbs.db
 *.DS_Store
 

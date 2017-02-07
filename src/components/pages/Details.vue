@@ -3,13 +3,13 @@
     <f7-navbar title="Results" back-link="Search" sliding></f7-navbar>
     <f7-card>
       <f7-card-header class="no-border no-padding">
-        <img :src="album.images[0].url" width="100%" />
+        <img :src="item.album.images[0].url" width="100%" />
       </f7-card-header>
       <f7-card-content>
         <div class="card-content-inner">
-          <div class="track-name">{{ name }}</div>
-          <div class="artists-name">by {{ artists[0].name }}</div>
-          <div class="album-title">{{ album.name }}</div>
+          <div class="track-name">{{ item.name }}</div>
+          <div class="artists-name">by {{ item.artists[0].name }}</div>
+          <div class="album-title">{{ item.album.name }}</div>
         </div>
         <div class="card-content-inner preview">
           <div class="playback-controls">
@@ -17,7 +17,7 @@
               <a class="play-button play" v-show="stopped" href="#" @click.prevent="clickPlay" key="play">
                 <div class="arrow-right play"></div>
               </a>
-              <a class="pending-button pending" v-show="pending" href="#" @click.prevent="clickPending" key="pending">
+              <a class="pending-button pending" v-show="pending" href="#" @click.prevent="clickStop" key="pending">
                 <span class="preloader pending"></span>
               </a>
               <a class="stop-button stop" v-show="playing" href="#" @click.prevent="clickStop" key="stop">
@@ -25,7 +25,7 @@
               </a>
             </transition-group>
             <div class="duration">
-              <span data-progress="0" class="progressbar"></span>
+              <f7-progressbar ref="progressbar" />
             </div>
           </div>
         </div>
@@ -39,45 +39,57 @@
 </template>
 
 <script>
-  /* global store */
+  /* global store Media */
   import { durationFromMs } from '../../utils/utils';
+  import {
+    mediaPreviewSuccessCallback,
+    mediaPreviewErrorCallback,
+    mediaPreviewStatusCallback,
+    monitorMediaPreviewCurrentPosition,
+    createMediaPreview,
+  } from '../../utils/playback';
 
   export default {
     name: 'Details',
     data() {
-      return store.tracksById[this.$route.params.id];
+      return store;
     },
     methods: {
-      clickPlay() {
-        console.log('play clicked');
-        store.pending = true;
-        setTimeout(() => {
-          store.pending = false;
-          store.playing = true;
-        }, 1000);
+      onF7Init() {
+        this.createMediaPreview(this.item.preview_url, this.$refs.progressbar.$el);
       },
-      clickPending() {
-        console.log('pending clicked');
-        store.playing = true;
+      clickPlay() {
+        this.monitorMediaPreviewCurrentPosition(this.mediaPreview, this.$refs.progressbar.$el);
+        this.mediaPreview.play();
+        this.pending = true;
       },
       clickStop() {
-        console.log('stop clicked');
-        store.playing = false;
+        this.mediaPreview.stop();
+        this.playing = false;
+        this.pending = false;
       },
+      mediaPreviewSuccessCallback,
+      mediaPreviewErrorCallback,
+      mediaPreviewStatusCallback,
+      monitorMediaPreviewCurrentPosition,
+      createMediaPreview,
     },
     computed: {
       duration() {
-        return durationFromMs(this.duration_ms);
+        return this.item && this.item.duration_ms && durationFromMs(this.item.duration_ms);
       },
       stopped() {
-        return !store.playing;
+        return !this.playing;
       },
-      pending() {
-        return store.pending;
+      item() {
+        return this.tracksById[this.$route.params.id];
       },
-      playing() {
-        return store.playing;
-      },
+    },
+    beforeDestroy() {
+      // stop playing before leaving the page
+      this.monitorMediaPreviewCurrentPosition();
+      this.mediaPreview.stop();
+      this.mediaPreview.release();
     },
   };
 </script>
