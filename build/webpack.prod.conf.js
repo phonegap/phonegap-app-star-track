@@ -4,7 +4,6 @@ var utils = require('./utils')
 var webpack = require('webpack')
 var merge = require('webpack-merge')
 var baseWebpackConfig = require('./webpack.base.conf')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -12,7 +11,7 @@ var env = process.env.NODE_ENV === 'testing'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap, extract: true })
+    loaders: utils.styleLoaders({ sourceMap: config.build.productionSourceMap })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -23,7 +22,6 @@ var webpackConfig = merge(baseWebpackConfig, {
   vue: {
     loaders: utils.cssLoaders({
       sourceMap: config.build.productionSourceMap,
-      extract: true
     })
   },
   plugins: [
@@ -37,8 +35,6 @@ var webpackConfig = merge(baseWebpackConfig, {
       }
     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    // extract css into its own file
-    new ExtractTextPlugin(utils.assetsPath('css/[name].[contenthash].css')),
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
