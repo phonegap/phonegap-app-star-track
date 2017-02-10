@@ -31,7 +31,8 @@
         return `<img width="80" src="${url}" />`;
       },
       clickItem(id) {
-        this.$f7.mainView.router.loadPage(`/results/details/${id}`);
+        const { mainView: { router } } = this.$f7;
+        router.loadPage(`/results/details/${id}`);
       },
       fetchResults() {
         let { q } = this.$route.params;

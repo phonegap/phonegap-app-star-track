@@ -1,12 +1,19 @@
 <template>
   <f7-page>
-    <f7-navbar title="Results" back-link="Search" sliding></f7-navbar>
+    <f7-navbar title="Results" back-link="Results" sliding>
+      <f7-nav-right>
+        <f7-link icon="fa fa-star" @click="toggleFavorite" v-if="isFavorite"></f7-link>
+        <f7-link icon="fa fa-star-o" @click="toggleFavorite" v-else></f7-link>
+      </f7-nav-right>
+    </f7-navbar>
     <f7-card>
-      <f7-card-header class="no-border no-padding">
+      <!-- cache the card and header content with `v-once` so that when removing
+        a favorite, it doesn't try to re-render with missing data -->
+      <f7-card-header class="no-border no-padding" v-once>
         <img :src="item.album.images[0].url" width="100%" />
       </f7-card-header>
       <f7-card-content>
-        <div class="card-content-inner">
+        <div class="card-content-inner" v-once>
           <div class="track-name">{{ item.name }}</div>
           <div class="artists-name">by {{ item.artists[0].name }}</div>
           <div class="album-title">{{ item.album.name }}</div>
@@ -48,6 +55,7 @@
     monitorMediaPreviewCurrentPosition,
     createMediaPreview,
   } from '../../utils/playback';
+  import { toggleFavorite } from '../../utils/favorites';
 
   export default {
     name: 'Details',
@@ -56,10 +64,10 @@
     },
     methods: {
       onF7Init() {
-        this.createMediaPreview(this.item.preview_url, this.$refs.progressbar.$el);
+        this.createMediaPreview(this.item.preview_url, this.progressbar);
       },
       clickPlay() {
-        this.monitorMediaPreviewCurrentPosition(this.mediaPreview, this.$refs.progressbar.$el);
+        this.monitorMediaPreviewCurrentPosition(this.mediaPreview, this.progressbar);
         this.mediaPreview.play();
         this.pending = true;
       },
@@ -67,6 +75,16 @@
         this.mediaPreview.stop();
         this.playing = false;
         this.pending = false;
+      },
+      toggleFavorite() {
+        const { mainView: { router } } = this.$f7;
+
+        if (this.displayingFavorite) {
+          toggleFavorite(this.item);
+          router.back();
+        } else {
+          toggleFavorite(this.item);
+        }
       },
       mediaPreviewSuccessCallback,
       mediaPreviewErrorCallback,
@@ -81,8 +99,28 @@
       stopped() {
         return !this.playing;
       },
+      displayingFavorite() {
+        const { displayingFavorite = false } = this.$route.query;
+        return !!displayingFavorite;
+      },
       item() {
-        return this.tracksById[this.$route.params.id];
+        let item;
+        if (this.displayingFavorite) {
+          item = this.favoritesById[this.id];
+        } else {
+          item = this.tracksById[this.id];
+        }
+        return item;
+      },
+      id() {
+        return this.$route.params.id;
+      },
+      progressbar() {
+        return this.$refs.progressbar.$el;
+      },
+      isFavorite() {
+        const filteredFavorites = this.favorites.filter(favorite => favorite.id === this.id);
+        return !!filteredFavorites.length;
       },
     },
     beforeDestroy() {

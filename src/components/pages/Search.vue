@@ -39,7 +39,7 @@
       onSubmit() {
         const { filter, limit, q } = this.$f7.formToJSON(`#${this.searchFormId}`);
         console.log(filter, limit, q);
-        if (!q) {
+        if (!q.trim()) {
           this.$f7.alert('Please enter a search term', 'Search Error');
           return;
         }

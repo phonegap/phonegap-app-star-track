@@ -91,7 +91,6 @@
     <preference name="DisallowOverscroll" value="true" />
     <plugin name="cordova-plugin-whitelist" spec="~1.2.0" />
     <plugin name="cordova-plugin-console" spec="~1.0.3" />
-    <plugin name="cordova-plugin-statusbar" spec="~1.0.1" />
     <preference name="StatusBarStyle" value="default" />
     <plugin name="cordova-plugin-splashscreen" spec="~3.1.0" />
     <preference name="FadeSplashScreenDuration" value="300" />
@@ -101,4 +100,5 @@
     <plugin name="cordova-plugin-media" spec="~2.4.1">
         <variable name="MICROPHONE_USAGE_DESCRIPTION" value=" " />
     </plugin>
+    <plugin name="cordova-plugin-statusbar" spec="~2.2.1" />
 </widget>

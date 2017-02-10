@@ -1,4 +1,4 @@
-/* global window */
+/* global window document f7 */
 
 import 'whatwg-fetch';
 
@@ -16,7 +16,11 @@ import Framework7Vue from 'framework7-vue';
 // Import Routes
 import Routes from './routes';
 
+// Import App
 import App from './App';
+
+// Import utils
+import { fetchFavoritesFromLocalStorage } from './utils/favorites';
 
 // Import F7 iOS Theme Styles
 /* eslint-disable no-unused-vars */
@@ -64,9 +68,18 @@ new Vue({
 });
 
 // Set up a global store
+const favorites = fetchFavoritesFromLocalStorage();
+const favoritesById = favorites.reduce((a, b) => {
+  const c = a;
+  c[b.id] = b;
+  return c;
+}, {});
+
 window.store = {
   tracks: [],
   tracksById: {},
+  favorites,
+  favoritesById,
   pending: false,
   playing: false,
   mediaPreview: {
@@ -76,3 +89,11 @@ window.store = {
     getCurrentPosition() {},
   },
 };
+
+// Ye olde Device Ready
+document.addEventListener('deviceready', () => {
+  // Bind to the back button for Android
+  document.addEventListener('backbutton', () => {
+    f7.mainView.router.back();
+  });
+});
