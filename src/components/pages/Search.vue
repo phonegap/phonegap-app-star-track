@@ -12,8 +12,8 @@
       <f7-list>
         <f7-list-item>
           <f7-input type="text" name="q"
-              placeholder="track, artist or album"
-              autocorrect="off" autocapitalize="off" />
+              placeholder="track, artist or album" ref="searchInput"
+              autocorrect="off" autocapitalize="off"  />
         </f7-list-item>
         <f7-list-group>
           <f7-list-item title="Limit to:" group-title></f7-list-item>
@@ -38,12 +38,17 @@
     methods: {
       onSubmit() {
         const { filter, limit, q } = this.$f7.formToJSON(`#${this.searchFormId}`);
-        console.log(filter, limit, q);
+        const { searchInput } = this.$refs;
+        const { router } = this.$f7.mainView;
+        const input = searchInput.$el.querySelector('input');
+
+        input.blur();
+
         if (!q.trim()) {
           this.$f7.alert('Please enter a search term', 'Search Error');
           return;
         }
-        this.$f7.mainView.router.loadPage(`/results/${filter}/${limit}/${q}`);
+        router.loadPage(`/results/${filter}/${limit}/${q}`);
       },
     },
     computed: {
