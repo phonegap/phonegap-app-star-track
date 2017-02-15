@@ -23,37 +23,33 @@ import App from './App';
 import { fetchFavoritesFromLocalStorage } from './utils/favorites';
 
 // Import F7 iOS Theme Styles
-/* eslint-disable no-unused-vars */
+/* eslint-disable global-require */
 if (window.Framework7.prototype.device.ios) {
-  const Framework7Theme = require('framework7/dist/css/framework7.ios.min.css'); // eslint-disable-line global-require
-  const Framework7ThemeColors = require('framework7/dist/css/framework7.ios.colors.min.css'); // eslint-disable-line global-require
+  const Framework7Theme =
+    require('framework7/dist/css/framework7.ios.min.css');
+  const Framework7ThemeColors =
+    require('framework7/dist/css/framework7.ios.colors.min.css');
 } else {
   /* OR for Material Theme: */
-  const Framework7ThemeMaterial = require('framework7/dist/css/framework7.material.min.css'); // eslint-disable-line global-require
-  const Framework7ThemeColorsMaterial = require('framework7/dist/css/framework7.material.colors.min.css'); // eslint-disable-line global-require
+  const Framework7ThemeMaterial =
+    require('framework7/dist/css/framework7.material.min.css');
+  const Framework7ThemeColorsMaterial =
+    require('framework7/dist/css/framework7.material.colors.min.css');
 }
 
 window.isMaterial = !window.Framework7.prototype.device.ios;
 window.isiOS = window.Framework7.prototype.device.ios;
 
-// Import App Custom Styles
-// import AppStyles from './css/app.css';
-
 // Init F7 Vue Plugin
 Vue.use(Framework7Vue);
 
-// const isMaterial = Framework7.prototype.device.ios === false;
-// const isIos = Framework7.prototype.device.ios === true;
-
-/* eslint-disable no-new */
 // Init App
-new Vue({
+new Vue({ // eslint-disable-line no-new
   el: '#app',
   template: '<app />',
   // Init Framework7 by passing parameters here
   framework7: {
     root: '#app',
-    /* Uncomment to enable Material theme: */
     material: !window.Framework7.prototype.device.ios,
     routes: Routes,
     swipePanel: 'left',
@@ -75,6 +71,7 @@ const favoritesById = favorites.reduce((a, b) => {
   return c;
 }, {});
 
+// Global store defaults
 window.store = {
   tracks: [],
   tracksById: {},

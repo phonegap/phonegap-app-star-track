@@ -38,7 +38,9 @@
         let { q } = this.$route.params;
         const { limit, filter } = this.$route.params;
         q = (filter === 'all') ? q : `${filter}:${q}`;
-        fetch(`https://api.spotify.com/v1/search?limit=${limit}&type=track&q=${q}`)
+        const apiURL =
+          `https://api.spotify.com/v1/search?limit=${limit}&type=track&q=${q}`;
+        fetch(apiURL)
           .then(response => response.json())
           .then((json) => {
             store.tracks = json.tracks;

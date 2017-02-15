@@ -20,7 +20,8 @@
       />
     </f7-list>
     <f7-block v-else>
-      <p>You haven't favorited any tracks! Use the search function and add some to favorites.</p>
+      <p>You haven't favorited any tracks! Use the search function and add
+      some to favorites.</p>
     </f7-block>
   </f7-page>
 </template>
@@ -40,7 +41,8 @@
         return `<img width="80" src="${url}" />`;
       },
       clickItem(id) {
-        this.$f7.mainView.router.loadPage(`/results/details/${id}?displayingFavorite=true`);
+        this.$f7.mainView.router
+          .loadPage(`/results/details/${id}?displayingFavorite=true`);
       },
     },
     computed: {

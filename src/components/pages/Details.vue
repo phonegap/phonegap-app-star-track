@@ -2,8 +2,8 @@
   <f7-page>
     <f7-navbar title="Results" back-link="Results" sliding>
       <f7-nav-right>
-        <f7-link icon="fa fa-star" @click="toggleFavorite" v-if="isFavorite"></f7-link>
-        <f7-link icon="fa fa-star-o" @click="toggleFavorite" v-else></f7-link>
+        <f7-link icon="fa fa-star" @click="toggleFavorite" v-if="isFavorite" />
+        <f7-link icon="fa fa-star-o" @click="toggleFavorite" v-else />
       </f7-nav-right>
     </f7-navbar>
     <f7-card>
@@ -21,13 +21,31 @@
         <div class="card-content-inner preview">
           <div class="playback-controls">
             <transition-group name="fade">
-              <a class="play-button play" v-show="stopped" href="#" @click.prevent="clickPlay" key="play">
+              <a
+                class="play-button play"
+                v-show="stopped"
+                href="#"
+                @click.prevent="clickPlay"
+                key="play"
+              >
                 <div class="arrow-right play"></div>
               </a>
-              <a class="pending-button pending" v-show="pending" href="#" @click.prevent="clickStop" key="pending">
+              <a
+                class="pending-button pending"
+                v-show="pending"
+                href="#"
+                @click.prevent="clickStop"
+                key="pending"
+              >
                 <span class="preloader pending"></span>
               </a>
-              <a class="stop-button stop" v-show="playing" href="#" @click.prevent="clickStop" key="stop">
+              <a
+                class="stop-button stop"
+                v-show="playing"
+                href="#"
+                @click.prevent="clickStop"
+                key="stop"
+              >
                 <div class="square stop"></div>
               </a>
             </transition-group>
@@ -67,7 +85,10 @@
         this.createMediaPreview(this.item.preview_url, this.progressbar);
       },
       clickPlay() {
-        this.monitorMediaPreviewCurrentPosition(this.mediaPreview, this.progressbar);
+        this.monitorMediaPreviewCurrentPosition(
+          this.mediaPreview,
+          this.progressbar,
+        );
         this.mediaPreview.play();
         this.pending = true;
       },
@@ -94,7 +115,8 @@
     },
     computed: {
       duration() {
-        return this.item && this.item.duration_ms && durationFromMs(this.item.duration_ms);
+        const { duration_ms: durationMs = 0 } = this.item;
+        return durationFromMs(durationMs);
       },
       stopped() {
         return !this.playing;
@@ -119,7 +141,8 @@
         return this.$refs.progressbar.$el;
       },
       isFavorite() {
-        const filteredFavorites = this.favorites.filter(favorite => favorite.id === this.id);
+        const filteredFavorites =
+          this.favorites.filter(favorite => favorite.id === this.id);
         return !!filteredFavorites.length;
       },
     },

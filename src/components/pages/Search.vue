@@ -16,15 +16,40 @@
               autocorrect="off" autocapitalize="off"  />
         </f7-list-item>
         <f7-list-group>
-          <f7-list-item title="Limit to:" group-title></f7-list-item>
-          <f7-list-item radio name="filter" value="track" title="Track name"></f7-list-item>
-          <f7-list-item radio name="filter" value="artist" title="Artist name"></f7-list-item>
-          <f7-list-item radio name="filter" value="album" title="Album name"></f7-list-item>
-          <f7-list-item radio name="filter" value="all" title="All of the above" checked></f7-list-item>
+          <f7-list-item title="Limit to:" group-title />
+          <f7-list-item
+            radio
+            name="filter"
+            value="track"
+            title="Track name"
+          />
+          <f7-list-item
+            radio
+            name="filter"
+            value="artist"
+            title="Artist name"
+          />
+          <f7-list-item
+            radio
+            name="filter"
+            value="album"
+            title="Album name"
+          />
+          <f7-list-item
+            radio
+            name="filter"
+            value="all"
+            title="All of the above"
+            checked
+          />
         </f7-list-group>
         <input type="hidden" name="limit" value="25" />
         <f7-block>
-          <input type="submit" class="button button-big button-fill search-submit" value="Find Tracks" />
+          <input
+            type="submit"
+            class="button button-big button-fill search-submit"
+            value="Find Tracks"
+          />
         </f7-block>
       </f7-list>
     </form>
