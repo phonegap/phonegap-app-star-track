@@ -1,5 +1,5 @@
 <template>
-  <f7-panel left cover layout="light" theme="green">
+  <f7-panel left :cover="isMaterial" :reveal="isiOS" :layout="layout" theme="green">
     <f7-page>
       <f7-list>
         <f7-list-item
@@ -20,7 +20,19 @@
 </template>
 
 <script>
+  /* global window */
   export default {
     name: 'LeftPanel',
+    data() {
+      return {
+        isMaterial: window.isMaterial,
+        isiOS: window.isiOS,
+      };
+    },
+    computed: {
+      layout() {
+        return window.isiOS ? 'dark' : 'light';
+      },
+    },
   };
 </script>

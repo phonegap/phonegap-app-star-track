@@ -115,7 +115,7 @@
     },
     computed: {
       duration() {
-        const { duration_ms: durationMs = 0 } = this.item;
+        const { duration_ms: durationMs = 0 } = this.item || { duration_ms: 0 };
         return durationFromMs(durationMs);
       },
       stopped() {
