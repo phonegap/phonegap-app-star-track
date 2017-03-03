@@ -5,7 +5,7 @@ import Details from './components/pages/Details';
 
 export default [
   {
-    path: '',
+    path: '/',
     component: Search,
   },
   {
