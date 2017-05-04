@@ -8,6 +8,8 @@ Template7.global = {
   ios: isIos,
 };
 
+var mainView;
+
 // A template helper to turn ms durations to mm:ss
 // We need to be able to pad to 2 digits
 function pad2(number) {
@@ -64,43 +66,45 @@ var myApp = new Framework7({
   pushState: !!Framework7.prototype.device.os,
 });
 
-// Add view
-var mainView = myApp.addView('.view-main', {
-  // Because we want to use dynamic navbar, we need to enable it for this view:
-  dynamicNavbar: true,
-  domCache: true,
-});
+function init() {
+  // Add view
+  mainView = myApp.addView('.view-main', {
+    // Because we want to use dynamic navbar, we need to enable it for this view:
+    dynamicNavbar: true,
+    domCache: true,
+  });
 
-// Handle Cordova Device Ready Event
-$$(document).on('deviceready', function deviceIsReady() {
-  console.log('Device is ready!');
-});
+  // Handle Cordova Device Ready Event
+  $$(document).on('deviceready', function deviceIsReady() {
+    console.log('Device is ready!');
+  });
+  $$(document).on('click', '.panel .search-link', function searchLink() {
+    // Only change route if not already on the index
+    //  It would be nice to have a better way of knowing this...
+    var indexPage = $$('.page[data-page=index]');
+    if (indexPage.hasClass('cached')) {
+      mainView.router.load({
+        pageName: 'index',
+        animatePages: false,
+        reload: true,
+      });
+    }
+  });
 
-$$(document).on('click', '.panel .search-link', function searchLink() {
-  // Only change route if not already on the index
-  //  It would be nice to have a better way of knowing this...
-  var indexPage = $$('.page[data-page=index]');
-  if (indexPage.hasClass('cached')) {
+  $$(document).on('click', '.panel .favorites-link', function searchLink() {
+    // @TODO fetch the favorites (if any) from localStorage
+    var favorites = JSON.parse(localStorage.getItem('favorites'));
     mainView.router.load({
-      pageName: 'index',
+      template: myApp.templates.favorites,
       animatePages: false,
+      context: {
+        tracks: favorites,
+      },
       reload: true,
     });
-  }
-});
-
-$$(document).on('click', '.panel .favorites-link', function searchLink() {
-  // @TODO fetch the favorites (if any) from localStorage
-  var favorites = JSON.parse(localStorage.getItem('favorites'));
-  mainView.router.load({
-    template: myApp.templates.favorites,
-    animatePages: false,
-    context: {
-      tracks: favorites,
-    },
-    reload: true,
   });
-});
+  $$(document).on('submit', '#search', searchSubmit);
+}
 
 /**
  * Search
@@ -148,7 +152,6 @@ function searchSubmit(e) {
   });
 }
 
-$$(document).on('submit', '#search', searchSubmit);
 
 /**
  * Details page
