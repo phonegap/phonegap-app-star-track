@@ -2,6 +2,8 @@
 
 A PhoneGap example app using [Framework7 HTML Framework](http://framework7.io/) and the [Spotify API](https://developer.spotify.com/web-api/).
 
+## NOTE: The Spotify API had added a requirement for OAuth authorization even for the `/search` endpoint. This means this app is broken for the moment. See: https://github.com/phonegap/phonegap-app-star-track/issues/26
+
 ## Previewing the app
 
 ### Requirements
