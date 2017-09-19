@@ -87,7 +87,7 @@
                     <div class="item-content">
                       <div class="item-inner">
                         <div class="item-input">
-                          <input type="text" name="q" id="query"
+                          <input type="text" name="term" id="query"
                             placeholder="track, artist or album"
                             autocorrect="off" autocapitalize="off">
                         </div>
@@ -194,15 +194,15 @@
                   data-template="details"
                 >
                   <div class="item-media">
-                    <img width="80" src="{{this.album.images[0].url}}">
+                    <img width="80" src="{{this.artworkUrl60}}">
                   </div>
                   <div class="item-inner">
                     <div class="item-title-row">
-                      <div class="item-title">{{this.name}}</div>
-                      <div class="item-after">{{durationFromMs this.duration_ms}}</div>
+                      <div class="item-title">{{this.trackName}}</div>
+                      <div class="item-after">{{durationFromMs this.trackTimeMillis}}</div>
                     </div>
-                    <div class="item-subtitle">{{this.artists[0].name}}</div>
-                    <div class="item-text">{{this.album.name}}</div>
+                    <div class="item-subtitle">{{this.artistName}}</div>
+                    <div class="item-text">{{this.collectionName}}</div>
                   </div>
                 </a>
               </li>
@@ -255,13 +255,13 @@
         <div class="page-content">
           <div class="card">
             <div class="card-header no-border no-padding">
-              <img src="{{this.album.images[0].url}}" width="100%" />
+              <img src="{{this.artworkUrl100}}" width="100%" />
             </div>
             <div class="card-content">
               <div class="card-content-inner">
-                <div class="track-name">{{this.name}}</div>
-                <div class="artists-name">by {{this.artists[0].name}}</div>
-                <div class="album-title">{{this.album.name}}</div>
+                <div class="track-name">{{this.trackName}}</div>
+                <div class="artists-name">by {{this.artistName}}</div>
+                <div class="album-title">{{this.collectionName}}</div>
               </div>
             </div>
             <div class="card-content">
@@ -284,7 +284,7 @@
             </div>
             <div class="card-footer">
               <div>Track duration</div>
-              <div>{{durationFromMs this.duration_ms}}</div>
+              <div>{{durationFromMs this.trackTimeMillis}}</div>
             </div>
           </div>
         </div>
@@ -330,15 +330,15 @@
                   data-template="details"
                 >
                   <div class="item-media">
-                    <img width="80" src="{{this.album.images[0].url}}">
+                    <img width="80" src="{{this.artworkUrl100}}">
                   </div>
                   <div class="item-inner">
                     <div class="item-title-row">
-                      <div class="item-title">{{this.name}}</div>
-                      <div class="item-after">{{durationFromMs this.duration_ms}}</div>
+                      <div class="item-title">{{this.trackName}}</div>
+                      <div class="item-after">{{durationFromMs this.trackTimeMillis}}</div>
                     </div>
-                    <div class="item-subtitle">{{this.artists[0].name}}</div>
-                    <div class="item-text">{{this.album.name}}</div>
+                    <div class="item-subtitle">{{this.artistName}}</div>
+                    <div class="item-text">{{this.collectionName}}</div>
                   </div>
                 </a>
               </li>
