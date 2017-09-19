@@ -293,7 +293,7 @@ function addOrRemoveFavorite(e) {
 }
 
 myApp.onPageInit('details', function(page) {
-  var previewUrl = page.context.preview_url;
+  var previewUrl = page.context.previewUrl;
   if (typeof Media !== 'undefined') {
     // Create media object on page load so as to let it start buffering right
     //  away...
